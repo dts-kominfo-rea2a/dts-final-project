@@ -1,15 +1,10 @@
 import React from "react";
-
 import { AppBar, Box, Button, Toolbar, Typography } from "@mui/material";
-
-// Di sini kita akan menggunakan useNavigate untuk bisa keluar dari halaman HomePage dan
-// beralih ke halaman Login
 import { useNavigate } from "react-router-dom";
 
 import styles from "./NavBar.module.css";
 
 const NavBar = () => {
-  // Gunakan hooks useNavigate
   const navigate = useNavigate();
 
   const buttonLogoutOnClickHandler = () => {

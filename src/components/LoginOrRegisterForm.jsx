@@ -1,18 +1,12 @@
 // Membutuhkan state untuk meng-track value dari TextField
 import React, { useState } from "react";
-
-// Gunakan .module.css untuk mendapatkan scoped css
 import styles from "./LoginOrRegisterForm.module.css";
 
 import { Grid, Box, Button, TextField, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
-
-// Karena nantinya kita bisa berpindah ke halaman LoginPage (setelah Register)
-// ataupun ke halaman HomePage (setelah Login), maka kita bisa memanfaatkan useNavigate
 import { useNavigate } from "react-router-dom";
 
 const LoginOrRegisterForm = ({ loginOrRegister }) => {
-  // gunakan hooks useNavigate
   const navigate = useNavigate();
 
   const [credential, setCredential] = useState({
@@ -21,11 +15,6 @@ const LoginOrRegisterForm = ({ loginOrRegister }) => {
   });
 
   const textFieldEmailOnChangeHandler = (event) => {
-    // Karena state berupa Object
-    // dan state sifatnya immutable
-
-    // maka untuk set statenya
-    // menggunakan spread dan overwrite
     setCredential({
       ...credential,
       email: event.target.value,
