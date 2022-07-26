@@ -25,7 +25,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "cz": "cz --name cz_commitizen_emoji commit"
   },
   "eslintConfig": {
     "extends": [
