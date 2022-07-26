@@ -1,22 +1,22 @@
-import logo from './logo.svg';
 import './App.css';
+import SnackbarComponent from "./components/SnackbarComponent";
+import Button from "@mui/material/Button";
+import { snackbarSuccess } from "./redux/actions/showSnackbar";
+import { useDispatch } from "react-redux";
 
 function App() {
+  const dispatch = useDispatch();
+
   return (
     <div className="App">
+      <SnackbarComponent />
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+        <Button
+          color="success"
+          onClick={() => dispatch(snackbarSuccess("Berhasill !!!"))}
         >
-          Learn React
-        </a>
+          Show
+        </Button>
       </header>
     </div>
   );
