@@ -20,31 +20,31 @@ import EditProfilePage from './pages/Profile/EditProfilePage';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  //<React.StrictMode>
-  <Provider store={store}>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<App />}>
-          <Route path="/" element={<HomepageTemplate />}>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/auth/login" element={<Login />} />
-            <Route path="/auth/register" element={<Register />} />
-          </Route>
-          <Route path="/auth/logout" element={<LogoutPage />} />
-          <Route path="/" element={<AppTemplate />}>
-            <Route path="/timeline/:timeline_type" element={<TimelinePage />} />
-            <Route path="/timeline" element={<TimelinePage />} />
-            <Route path="/profile/edit" element={<EditProfilePage />} />
-            <Route path="/u/:username" element={<UserProfilePage />} />
-            <Route path="/p/upload" element={<CreatePostPage />} />
-            <Route path="/p/:post_id" element={<PostDetailPage />} />
+  <React.StrictMode>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<App />}>
+            <Route path="/" element={<HomepageTemplate />}>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/auth/login" element={<Login />} />
+              <Route path="/auth/register" element={<Register />} />
+            </Route>
+            <Route path="/auth/logout" element={<LogoutPage />} />
+            <Route path="/" element={<AppTemplate />}>
+              <Route path="/timeline/:timeline_type" element={<TimelinePage />} />
+              <Route path="/timeline" element={<TimelinePage />} />
+              <Route path="/profile/edit" element={<EditProfilePage />} />
+              <Route path="/u/:username" element={<UserProfilePage />} />
+              <Route path="/p/upload" element={<CreatePostPage />} />
+              <Route path="/p/:post_id" element={<PostDetailPage />} />
 
+            </Route>
           </Route>
-        </Route>
-      </Routes>
-    </BrowserRouter>
-  </Provider>
-  //</React.StrictMode>
+        </Routes>
+      </BrowserRouter>
+    </Provider>
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
