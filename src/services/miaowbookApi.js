@@ -1,4 +1,4 @@
-export const API_URL = 'http://meow-api.test/api/v1'
+export const API_URL = 'https://miaowbook-api.herokuapp.com/api/v1'
 
 // const headers = (headers = {}) => {
 //     const token = useSelector(selectToken);

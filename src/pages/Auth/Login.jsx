@@ -7,6 +7,7 @@ import DefaultButton from "../../components/Buttons/DefaultButton";
 import SecondaryButton from "../../components/Buttons/SecondaryButton";
 import Field from "../../components/Forms/Field";
 import Input from "../../components/Forms/Input";
+import useTitle from "../../hooks/useTitle";
 import { useLoginMutation } from "../../services/miaowbookApiRtk";
 import { setToken, setUser } from "../../store/userStore";
 import { toast } from "../../utils/tools";
@@ -14,7 +15,7 @@ import { transformResponse } from "../../utils/utils";
 
 const Login = () => {
     const { state } = useLocation()
-    const [login, isLoading] = useLoginMutation()
+    const [login, { isLoading }] = useLoginMutation()
     const navigate = useNavigate()
     const dispatcher = useDispatch()
 
@@ -30,16 +31,20 @@ const Login = () => {
 
         if (isOk) {
             dispatcher(setToken({
-                token : data.token
+                token: data.token
             }))
             navigate('/timeline')
             return;
+        } else {
+            toast({ title: message, icon: 'error' })
         }
 
         if (status_code === 422) {
             return setErrors(errors)
         }
     }
+
+    useTitle('Login')
     return (
         <div>
             <img src={Logo} className="w-16 shadow-2xl mb-40" alt="MiaowBook Logo" />
@@ -49,28 +54,30 @@ const Login = () => {
                     onSubmit={submitHandler}
                 >
                     <Form>
-                        <div className="w-96 mx-auto grid gap-4">
-                            <Field
-                                id="email"
-                                type="text"
-                                label="Username / email"
-                                name="email"
-                                required />
+                        <section disabled={isLoading}>
+                            <div className="w-96 mx-auto grid gap-4">
+                                <Field
+                                    id="email"
+                                    type="text"
+                                    label="Username / email"
+                                    name="email"
+                                    required />
 
-                            <Field
-                                id="password"
-                                type="password"
-                                label="Password"
-                                name="password"
-                                required />
+                                <Field
+                                    id="password"
+                                    type="password"
+                                    label="Password"
+                                    name="password"
+                                    required />
 
-                            <div className="flex justify-between items-center">
-                                <span className="text-sm">
-                                    <Link to="/auth/register">Saya belum memiliki akun</Link>
-                                </span>
-                                <SecondaryButton type="submit">Login</SecondaryButton>
+                                <div className="flex justify-between items-center">
+                                    <span className="text-sm">
+                                        <Link to="/auth/register">Saya belum memiliki akun</Link>
+                                    </span>
+                                    <SecondaryButton type="submit">{isLoading ? 'Logging in...' : 'Login'}</SecondaryButton>
+                                </div>
                             </div>
-                        </div>
+                        </section>
                     </Form>
                 </Formik>
             </div>

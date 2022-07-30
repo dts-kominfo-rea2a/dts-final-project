@@ -13,6 +13,10 @@ const storeTokenToLocalStorage = (token) => {
     localStorage.setItem('token', token);
 }
 
+const removeTokenFromLocalStorage = () => {
+    localStorage.removeItem('token');
+}
+
 
 const userStore = createSlice({
     name: 'userStore',
@@ -35,6 +39,12 @@ const userStore = createSlice({
         },
         notLoggedIn(state) {
             state.isLoggedIn = false
+        },
+        loggedOut(state) {
+            state.isLoggedIn = false
+            state.user = null
+            state.token = null
+            removeTokenFromLocalStorage()
         }
     }
 })
@@ -43,6 +53,6 @@ export const selectIsLoggedIn = (state) => state.userStore.isLoggedIn
 export const selectToken = (state) => state.userStore.token
 export const selectUser = (state) => state.userStore.user
 // export const isUserValid = (state,) => state.userList.
-export const { loggedIn, setToken, setUser, notLoggedIn } = userStore.actions
+export const { loggedIn, setToken, setUser, notLoggedIn, loggedOut } = userStore.actions
 
 export default userStore.reducer

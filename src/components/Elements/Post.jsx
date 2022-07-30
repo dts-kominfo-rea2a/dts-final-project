@@ -8,32 +8,13 @@ import moment from "moment";
 import { Link } from "react-router-dom";
 import { useLikePostMutation, useUnlikePostMutation } from "../../services/miaowbookApiRtk";
 import { transformResponse } from "../../utils/utils";
+import LikeButton from "./LikeButton";
 const Post = ({ post }) => {
     const humanDiffDate = moment(post?.created_at).fromNow();
-    const [currentPost, setCurrentPost] = useState(post);
-
-    const [like] = useLikePostMutation()
-    const [unlike] = useUnlikePostMutation()
-    const likeHandler = async () => {
-        const isLiked = currentPost.is_liked
-        setCurrentPost({
-            ...currentPost,
-            is_liked: !currentPost.is_liked,
-            likes_count: currentPost.likes_count + (currentPost.is_liked ? -1 : 1)
-        });
-
-        const { isOk, data, message, error } = transformResponse(
-            isLiked === false
-                ? await like({ id: post.id })
-                : await unlike({ id: post.id })
-        );
-
-        if (isOk) {
-            setCurrentPost(data);
-        }
+    const [likeCounts, setLikeCounts] = useState(post.likes_count)
+    const onLikeUpdateHandler = (payload) => {
+        setLikeCounts(likeCounts + payload.likes_count);
     }
-
-    // console.log(currentPost);
     return (
         <div className="w-full">
             <div className="w-full md:border border-solid border-gray-300 md:rounded-md bg-white pb-4">
@@ -62,22 +43,20 @@ const Post = ({ post }) => {
                 <img className="w-full" src={post.media_url} alt="timeline" />
                 <div className="flex flex-col pt-4 px-4 gap-2 text-sm">
                     <div className="gap-4 flex">
-                        <button onClick={likeHandler}>
-                            <FontAwesomeIcon icon={currentPost.is_liked ? faHeart : faHeartEmpty} size="xl" color={currentPost.is_liked ? 'red' : null} />
-                        </button>
+                        <LikeButton postId={post.id} liked={post.is_liked} onUpdate={onLikeUpdateHandler} />
                         <button>
                             <div className="flex gap-2"><FontAwesomeIcon icon={faComment} size="xl" />
                                 <div className="text-sm">
-                                    <span className="font-bold">{currentPost.comments_count} comments</span>
+                                    <span className="font-bold">{post.comments_count} comments</span>
                                 </div>
                             </div>
                         </button>
                     </div>
                     <div className="text-sm">
                         {
-                            currentPost.likes_count <= 0
+                            likeCounts <= 0
                                 ? (<span>be the first to like this photo</span>)
-                                : (<span className="font-bold">{currentPost.likes_count} likes</span>)
+                                : (<span className="font-bold">{likeCounts} likes</span>)
                         }
                     </div>
                     <div className="">

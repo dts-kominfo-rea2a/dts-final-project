@@ -13,28 +13,37 @@ import AppTemplate from './pages/Templates/AppTemplate';
 import { store } from './store';
 import { Provider } from 'react-redux';
 import UserProfilePage from './pages/Timeline/UserProfilePage';
+import PostDetailPage from './pages/Post/PostDetailPage';
+import CreatePostPage from './pages/Post/CreatePostPage';
+import LogoutPage from './pages/Auth/LogoutPage';
+import EditProfilePage from './pages/Profile/EditProfilePage';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   //<React.StrictMode>
-    <Provider store={store}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<App />}>
-            <Route path="/" element={<HomepageTemplate />}>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/auth/login" element={<Login />} />
-              <Route path="/auth/register" element={<Register />} />
-            </Route>
-            <Route path="/" element={<AppTemplate />}>
-              <Route path="/timeline/:timeline_type" element={<TimelinePage />} />
-              <Route path="/timeline" element={<TimelinePage />} />
-              <Route path="/u/:username" element={<UserProfilePage />} />
-            </Route>
+  <Provider store={store}>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<App />}>
+          <Route path="/" element={<HomepageTemplate />}>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/auth/login" element={<Login />} />
+            <Route path="/auth/register" element={<Register />} />
           </Route>
-        </Routes>
-      </BrowserRouter>
-    </Provider>
+          <Route path="/auth/logout" element={<LogoutPage />} />
+          <Route path="/" element={<AppTemplate />}>
+            <Route path="/timeline/:timeline_type" element={<TimelinePage />} />
+            <Route path="/timeline" element={<TimelinePage />} />
+            <Route path="/profile/edit" element={<EditProfilePage />} />
+            <Route path="/u/:username" element={<UserProfilePage />} />
+            <Route path="/p/upload" element={<CreatePostPage />} />
+            <Route path="/p/:post_id" element={<PostDetailPage />} />
+
+          </Route>
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  </Provider>
   //</React.StrictMode>
 );
 

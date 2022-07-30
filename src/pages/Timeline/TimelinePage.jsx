@@ -11,6 +11,8 @@ import usePrevious from "../../hooks/usePrevious";
 import { useNavigate, useParams } from "react-router-dom";
 import SecondaryButton from "../../components/Buttons/SecondaryButton";
 import InfiniteScroll from "react-infinite-scroller";
+import useTitle from "../../hooks/useTitle";
+import Spinner from "../../components/Elements/Spinner";
 
 const TimelinePage = () => {
     const { timeline_type } = useParams()
@@ -22,6 +24,8 @@ const TimelinePage = () => {
         cursor: null,
         timeline_type: timeline_type || 'neighbor'
     })
+
+    useTitle('Timeline');
 
     const timelineQueryPrevious = usePrevious(timelineQuery);
 
@@ -91,7 +95,7 @@ const TimelinePage = () => {
                                 pageStart={0}
                                 loadMore={loadMoreHandler}
                                 hasMore={postsPerPage?.data?.next_cursor != null}
-                                loader={<div key="0" className="text-center">loading data ...</div>}
+                                loader={<div key="0" className="text-center"><Spinner size="md" /></div>}
                             >
                                 {
                                     (posts.length > 0)
@@ -101,6 +105,15 @@ const TimelinePage = () => {
                                                 <Post post={post} />
                                             </div>
                                         ))
+                                    )
+                                }
+
+                                {
+                                    (posts.length <= 0)
+                                    && (
+                                        <div className="w-full flex justify-center">
+                                            It looks like we dont have posts for you, check the Worldwide timeline instead!.
+                                        </div>
                                     )
                                 }
 
@@ -121,7 +134,7 @@ const TimelinePage = () => {
                         <img
                             src={user?.profile_picture_url}
                             alt={`${user?.name} profile`}
-                            className="w-16 rounded-full"
+                            className="w-16 h-16 object-cover rounded-full"
                         />
 
                         <div className="flex flex-col justify-center">

@@ -1,47 +1,34 @@
-import { Form, Formik } from "formik";
-import React, { useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import swal from "sweetalert";
-import Logo from "../../assets/logo.svg"
-import DefaultButton from "../../components/Buttons/DefaultButton";
-import SecondaryButton from "../../components/Buttons/SecondaryButton";
-import Field from "../../components/Forms/Field";
-import SelectField from "../../components/Forms/SelectField";
-import { useRegisterAttributesQuery, useRegisterMutation } from "../../services/miaowbookApiRtk";
-import { transformResponse } from "../../utils/utils";
-import { toast } from "../../utils/tools";
-import useTitle from "../../hooks/useTitle";
+import { Form, Formik } from 'formik';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import SecondaryButton from '../../components/Buttons/SecondaryButton';
+import Field from '../../components/Forms/Field';
+import SelectField from '../../components/Forms/SelectField';
+import TextAreaField from '../../components/Forms/TextAreaField';
+import { useRegisterAttributesQuery, useUpdateUserProfileMutation } from '../../services/miaowbookApiRtk';
+import { selectUser } from '../../store/userStore';
+import { toast } from '../../utils/tools';
+import { transformResponse } from '../../utils/utils';
 
-const Register = () => {
-    useTitle('Register')
-
+const EditProfilePage = () => {
     const { data: registerAttributes, isLoading: registerAttributesLoading } = useRegisterAttributesQuery()
-
-    const [register, isLoading] = useRegisterMutation()
-
-    const navigate = useNavigate()
-
+    const me = useSelector(selectUser)
     const formInitialValues = {
-        name: '',
-        email: '',
-        username: '',
-        password: '',
-        password_confirmation: '',
-        user_type_id: ''
+        name: me?.name || '',
+        email: me?.email || '',
+        username: me?.username || '',
+        user_type_id: me?.user_type?.id || '',
+        bio: me?.bio || ''
     }
+    console.log(me, formInitialValues)
+
+    const [updateProfile, { isLoading }] = useUpdateUserProfileMutation()
 
     const submitHandler = async (values, { setErrors }) => {
-        const { status_code, isOk, message, data, errors } = transformResponse(await register(values))
+        const { status_code, isOk, message, data, errors } = transformResponse(await updateProfile(values))
 
         if (isOk) {
             toast({ title: message })
-            // .then(() => {
-            navigate('/auth/login', {
-                state: {
-                    email: values.email
-                }
-            })
-            // })
             return;
         }
 
@@ -49,16 +36,15 @@ const Register = () => {
             return setErrors(errors)
         }
 
-
     }
-
-    // useEffect
     return (
-        <div>
-            <img src={Logo} className="w-16 shadow-2xl mb-10" alt="MiaowBook Logo" />
-            <h1 className="text-2xl mb-10">Create <br /><span className="font-bold text-5xl">MiaowBook</span><br /> account.</h1>
-            <div className="mt-4 mx-5">
+
+        <div className="pt-4 w-full md:w-10/12 mx-auto">
+            <div className='md:bg-white w-full md:border md:border-gray-200 rounded-md p-4'>
+                <h1 className='text-2xl'>Edit Profile</h1>
+
                 <Formik
+                    enableReinitialize={true}
                     initialValues={formInitialValues}
                     onSubmit={submitHandler}
                 >
@@ -86,14 +72,6 @@ const Register = () => {
 
                                 </div>
 
-                                <Field
-                                    className='w-full'
-                                    id="email"
-                                    type="email"
-                                    label="Email"
-                                    name="email"
-                                    required />
-
                                 <SelectField
                                     id="user_type_id"
                                     name="user_type_id"
@@ -101,7 +79,13 @@ const Register = () => {
                                     options={registerAttributes?.accountTypes || []}
                                 />
 
-                                <div className="flex gap-2 w-full flex-wrap  md:flex-nowrap">
+                                <TextAreaField
+                                    id="bio"
+                                    name="bio"
+                                    label="Biography"
+                                />
+
+                                {/* <div className="flex gap-2 w-full flex-wrap  md:flex-nowrap">
                                     <Field
                                         className='w-full md:w-1/2'
                                         id="password"
@@ -118,15 +102,12 @@ const Register = () => {
                                         name="password_confirmation"
                                         required />
 
-                                </div>
+                                </div> */}
 
 
 
                                 <div className="flex justify-between items-center">
-                                    <span className="text-sm">
-                                        <Link to="/auth/login">Saya sudah memiliki akun</Link>
-                                    </span>
-                                    <SecondaryButton type="submit">{!isLoading ? 'Creating your account...' : 'Register'}</SecondaryButton>
+                                    <SecondaryButton type="submit">{isLoading ? 'Updating your account...' : 'Update'}</SecondaryButton>
                                 </div>
                             </div>
                         </section>
@@ -137,4 +118,4 @@ const Register = () => {
     )
 }
 
-export default Register
+export default EditProfilePage

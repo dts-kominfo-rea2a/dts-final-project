@@ -1,16 +1,23 @@
 export const convertToSelectOptions = (data, valueField, labelField) => {
-    return data.map(item => ({
-        value: item[valueField],
-        label: typeof labelField === 'function' ? labelField(item) : item[labelField]
-    }))
+    return [
+        {
+            value : '',
+            label : '-'
+        },
+        ...data.map(item => ({
+            value: item[valueField],
+            label: typeof labelField === 'function' ? labelField(item) : item[labelField]
+        }))
+    ]
 }
 
 export const transformResponse = (response) => {
+    console.log("RESP", response);
     if (response.error) {
         const errors = [];
 
-        Object.keys(response.error.data.errors).forEach(key => {
-            errors[key] = response.error.data.errors[key][0] || ''
+        Object.keys(response.error?.data?.errors || []).forEach(key => {
+            errors[key] = response?.error?.data?.errors[key][0] || ''
         });
 
         return {
@@ -30,4 +37,13 @@ export const transformResponse = (response) => {
     }
 
     return response
+}
+
+export const convertObjectToFormData = (data) => {
+    const formData = new FormData()
+    for (const key in data) {
+        formData.append(key, data[key])
+    }
+
+    return formData
 }
