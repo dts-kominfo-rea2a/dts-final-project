@@ -128,13 +128,13 @@ const PostDetailPage = () => {
         <div className="pt-4 w-full md:w-10/12 mx-auto">
             {
                 !isLoading && !error && (
-                    <div className="flex bg-white border border-gray-100 rounded-md" style={{
+                    <div className="flex flex-col md:flex-row bg-white border border-gray-100 rounded-md" style={{
                         minHeight: "calc(100vh - 8rem)"
                     }}>
-                        <div className="w-7/12 bg-gray-900 flex items-center">
+                        <div className="w-full md:w-7/12 bg-gray-900 flex items-center">
                             <img className="w-full" src={data?.data?.media_url} alt={data?.data?.caption} />
                         </div>
-                        <div className="w-5/12 mt-3 ml-3 mr-0 md:mr-2 relative">
+                        <div className="w-full md:w-5/12 mt-3 px-3 relative">
                             <div className="flex justify-between">
                                 <div className="flex items-center gap-2">
                                     <div className="relative">
