@@ -1,72 +1,115 @@
-import { createTheme } from "@mui/material";
-
-const selectedTheme = true;
-
-const themeMode = selectedTheme ? "dark" : "light";
-
-const themes = createTheme({
+const getDesignTokens = (mode) => ({
   palette: {
-    mode: themeMode,
-    primary: {
-      main: "#752FFF",
-    },
-    secondary: {
-      main: "#48426d",
-    },
-    success: {
-      main: "#OC3B2E",
-    },
-    error: {
-      main: "#FE3A3a",
-    },
-    warning: {
-      main: "#FFBB31",
-    },
-    info: {
-      main: "#67AEEE",
-    },
-    // background: {
-    //   default: '#fff',
-    //   paper: '#fff',
-    // },
-    breakpoints: {
-      values: {
-        xs: 0,
-        sm: 600,
-        md: 900,
-        lg: 1200,
-        xl: 1536,
-      },
-    },
+    mode,
+    ...(mode === "light"
+      ? {
+          primary: {
+            main: "#4B0082",
+          },
+          secondary: {
+            main: "#48426d",
+          },
+          success: {
+            main: "#OC3B2E",
+          },
+          error: {
+            main: "#FE3A3a",
+          },
+          warning: {
+            main: "#FFBB31",
+          },
+          info: {
+            main: "#67AEEE",
+          },
+          background: {
+            paper: "#fff",
+            default: "#f2f2f2",
+          },
+          text: {
+            primary: "#111111",
+          },
+          breakpoints: {
+            values: {
+              xs: 0,
+              sm: 600,
+              md: 900,
+              lg: 1200,
+              xl: 1536,
+            },
+          },
+        }
+      : /** pallete for dark mode */
+        {
+          primary: {
+            main: "#4B0082",
+          },
+          secondary: {
+            main: "#48426d",
+          },
+          success: {
+            main: "#OC3B2E",
+          },
+          error: {
+            main: "#FE3A3a",
+          },
+          warning: {
+            main: "#FFBB31",
+          },
+          info: {
+            main: "#67AEEE",
+          },
+          background: {
+            paper: "#121212",
+            default: "#121212",
+          },
+          text: {
+            primary: "#fff",
+          },
+          breakpoints: {
+            values: {
+              xs: 0,
+              sm: 600,
+              md: 900,
+              lg: 1200,
+              xl: 1536,
+            },
+          },
+        }),
   },
   components: {
     MuiAppBar: {
       defaultProps: {
-        color: "inherit"
-      }
+        color: "inherit",
+      },
     },
     MuiCard: {
+      defaultProps: {
+        color: "inherit",
+      },
       styleOverrides: {
         root: {
-          backgroundColor: 'inherit'
+          borderRadius: '8px'
         }
       }
     },
+    MuiContainer: {
+      defaultProps: {
+        color: "inherit",
+      },
+    },
     MuiGrid: {
-      styleOverrides: {
-        root: {
-          backgroundColor: "inherit"
-        }
-      }
+      defaultProps: {
+        color: "inherit",
+      },
     },
     MuiButton: {
       styleOverrides: {
         root: {
-          borderRadius: '1em'
-        }
-      }
-    }
-  }
+          borderRadius: "8px",
+        },
+      },
+    },
+  },
 });
 
-export default themes;
+export default getDesignTokens;

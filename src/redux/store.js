@@ -1,8 +1,19 @@
-import { applyMiddleware, legacy_createStore as createStore } from "redux";
-import thunk from "redux-thunk";
-import reducers from "./reducers/index";
+/** === NEW REDUX TOOLKIT === */
+import { configureStore } from "@reduxjs/toolkit";
+import themes from "./themes/themeSlice"
 
-export default createStore(reducers, applyMiddleware(thunk));
+export default configureStore({
+  reducer: {
+    themes
+  }
+})
+
+/** === OLD === */
+// import { applyMiddleware, legacy_createStore as createStore } from "redux";
+// import thunk from "redux-thunk";
+// import reducers from "./reducers/index";
+
+// export default createStore(reducers, applyMiddleware(thunk));
 
 /**
  * author : Riki Joni Iskandar

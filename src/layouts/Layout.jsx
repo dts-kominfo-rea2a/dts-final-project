@@ -1,4 +1,3 @@
-import { Container } from "@mui/material"
 import { Outlet } from "react-router-dom"
 import Navbar from "../components/NavbarComponent"
 
@@ -8,10 +7,8 @@ export const Layout = () => {
       <Navbar />
 
       <>
-        <div style={{ margin: '4.em 0em', padding: '0' }}>
-          <Container>
+        <div style={{ margin: '4.em 0', padding: '0' }}>
             <Outlet />
-          </Container>
         </div>
       </>
     </>

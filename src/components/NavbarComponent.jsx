@@ -2,13 +2,13 @@
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button'
 import Container from '@mui/material/Container'
-import ListItemText from '@mui/material/ListItemText'
 import Toolbar from '@mui/material/Toolbar'
 import Divider from '@mui/material/Divider';
 import AppBar from '@mui/material/AppBar';
 // import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Typography } from '@mui/material';
+import SwitchThemeComponent from './SwitchThemeComponent';
 
 
 // const LogoApp = () => {
@@ -56,20 +56,21 @@ const Navbar = (props) => {
 			<AppBar component="nav" elevation={0}>
 				<Container fixed>
 					<Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }} >
-						<Typography>logo</Typography>
+						<Typography color={'default'} variant="h5">blogiseng</Typography>
 						<Divider />
 						<Box sx={{ display: 'flex', gap: '2em', alignItems: 'center' }}>
 							{navItems.map((item) => (
-								<Button key={item.href} sx={{ textTransform: 'capitalize', color: 'text.primary' }}>
-									<Link to={item.href} style={{ textDecoration: 'none', }}>
-										<ListItemText primary={item.text}>
-										</ListItemText>
-									</Link>
-								</Button>
+								<Link to={item.href} style={{ textDecoration: 'none', }} key={item.href} >
+									<Button sx={{ textTransform: 'capitalize', color: 'text.primary' }}>
+										<Typography color={'inherit'}>{item.text}
+										</Typography>
+									</Button>
+								</Link>
 							))}
-							<Link to={'/signin'} style={{textDecoration: 'none'}}>
-								<Button sx={{ textTransform: 'capitalize'}} variant='contained' disableElevation>Sign in</Button>
+							<Link to={'/signin'} style={{ textDecoration: 'none' }}>
+								<Button sx={{ textTransform: 'capitalize' }} variant='contained' disableElevation>Sign in</Button>
 							</Link>
+							<SwitchThemeComponent />
 						</Box>
 					</Toolbar>
 				</Container>
