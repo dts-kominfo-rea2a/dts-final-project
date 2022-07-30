@@ -8,11 +8,12 @@ import Divider from '@mui/material/Divider';
 import AppBar from '@mui/material/AppBar';
 // import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Typography } from '@mui/material';
 
 
-const LogoApp = () => {
-	return <p style={{ fontSize: '1.5em', textAlign: 'left' }}>blogiseng</p>
-}
+// const LogoApp = () => {
+// 	return <p style={{ fontSize: '1.5em', textAlign: 'left' }}>blogiseng</p>
+// }
 
 // const IconMenu = () => {
 // 	return <p>Menu</p>
@@ -52,10 +53,10 @@ const Navbar = (props) => {
 
 	return (
 		<>
-			<AppBar component="nav" elevation={0} color={''}>
+			<AppBar component="nav" elevation={0}>
 				<Container fixed>
 					<Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }} >
-						<LogoApp />
+						<Typography>logo</Typography>
 						<Divider />
 						<Box sx={{ display: 'flex', gap: '2em', alignItems: 'center' }}>
 							{navItems.map((item) => (
