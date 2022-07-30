@@ -20,6 +20,7 @@ const baseQuery = fetchBaseQuery({
 
         return headers
     },
+    mode:'cors'
 })
 
 const globalExceptionEndpoints = ['login']
