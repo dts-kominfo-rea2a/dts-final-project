@@ -1,16 +1,16 @@
 import "./App.css";
 import SnackbarComponent from "./components/SnackbarComponent";
-import Button from "@mui/material/Button";
-import { snackbarSuccess } from "./redux/actions/showSnackbar";
+// import Button from "@mui/material/Button";
+// import { snackbarSuccess } from "./redux/actions/showSnackbar";
 import { useDispatch } from "react-redux";
-import { Routes, Route, useRoutes } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { Layout } from "./layouts/Layout";
 import LoginPage from "./pages/auth/LoginPage";
 import RegisterPage from "./pages/auth/RegisterPage";
 import HomeIndex from "./pages/Home/Index";
 
 function App() {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   return (
     <div className="App">

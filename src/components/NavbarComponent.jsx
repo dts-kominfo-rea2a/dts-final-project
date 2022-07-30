@@ -6,7 +6,7 @@ import ListItemText from '@mui/material/ListItemText'
 import Toolbar from '@mui/material/Toolbar'
 import Divider from '@mui/material/Divider';
 import AppBar from '@mui/material/AppBar';
-import { useState } from 'react';
+// import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 
@@ -29,7 +29,7 @@ const Navbar = (props) => {
 
 	// const [user] = useAuthState(auth)
 
-	const [anchorEl, setAnchorEl] = useState(null);
+	// const [anchorEl, setAnchorEl] = useState(null);
 	// const open = Boolean(anchorEl);
 	// const handleClick = (event) => {
 	// 	setAnchorEl(event.currentTarget);
