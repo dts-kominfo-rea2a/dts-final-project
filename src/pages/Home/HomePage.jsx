@@ -20,7 +20,7 @@ const HomePage = () => {
         console.log("w")
     }, [isLoggedin, navigate])
 
-    useTitle('Welcome to Miawbook')
+    useTitle('Welcome to Miaowbook')
     return (
         <div>
             {
