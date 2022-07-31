@@ -55,7 +55,7 @@ const Login = () => {
                 >
                     <Form>
                         <section disabled={isLoading}>
-                            <div className="w-96 mx-auto grid gap-4">
+                            <div className="w-96 mx-auto grid gap-4 pr-4">
                                 <Field
                                     id="email"
                                     type="text"

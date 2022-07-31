@@ -8,6 +8,7 @@ import { toast } from "../../utils/tools";
 import { transformResponse } from "../../utils/utils";
 import { useCreatePostMutation } from "../../services/miaowbookApiRtk";
 import useTitle from "../../hooks/useTitle";
+import Spinner from "../../components/Elements/Spinner";
 const CreatePostPage = () => {
     useTitle("Create new post")
     const user = useSelector(selectUser)
@@ -109,7 +110,17 @@ const CreatePostPage = () => {
                                 label="Caption" />
 
                             <div className="flex justify-end">
-                                <SecondaryButton type="submit" disabled={isLoading} onClick={createPost}>Post</SecondaryButton>
+                                <SecondaryButton type="submit" disabled={isLoading} onClick={createPost}>
+                                    {
+                                        isLoading ?
+                                            (
+                                                <div className="flex items-center">
+                                                    <Spinner size="xs" /> Uploading..
+                                                </div>
+                                            )
+                                            : (<>Post</>)
+                                    }
+                                </SecondaryButton>
                             </div>
                         </div>
                     </div>
