@@ -127,41 +127,45 @@ const TimelinePage = () => {
                         )
                     } */}
                 </div>
-                <div className="hidden md:flex px-4 md:w-4/12 flex-col items-start">
-                    <div className="flex gap-4">
-                        <img
-                            src={user?.profile_picture_url}
-                            alt={`${user?.name} profile`}
-                            className="w-16 h-16 object-cover rounded-full"
-                        />
+                <div className="hidden md:flex px-4 md:w-4/12 flex-col items-start relative">
+                    <div className="fixed">
+                        <div className="flex flex-col">
+                            <div className="flex gap-4">
+                                <img
+                                    src={user?.profile_picture_url}
+                                    alt={`${user?.name} profile`}
+                                    className="w-16 h-16 object-cover rounded-full"
+                                />
 
-                        <div className="flex flex-col justify-center">
-                            <span className="font-bold">{user?.name}</span>
-                            <span className="text-gray-500 text-sm">{user?.username}</span>
+                                <div className="flex flex-col justify-center">
+                                    <span className="font-bold">{user?.name}</span>
+                                    <span className="text-gray-500 text-sm">{user?.username}</span>
+                                </div>
+                            </div>
+                            <div className="mt-4 w-full">
+                                {/* <Link to="/timeline">See from</Link> */}
+                                <Select
+                                    label="Timeline setting"
+                                    value={timelineQuery?.timeline_type}
+                                    onChange={(e) => {
+                                        setTimelineQuery({
+                                            timeline_type: e.target.value,
+                                            cursor: null
+                                        })
+                                    }}
+                                    options={[
+                                        {
+                                            value: 'worldwide',
+                                            label: "Worldwide"
+                                        },
+                                        {
+                                            value: 'neighbor',
+                                            label: "Followings"
+                                        },
+                                    ]}
+                                />
+                            </div>
                         </div>
-                    </div>
-                    <div className="mt-4 w-full">
-                        {/* <Link to="/timeline">See from</Link> */}
-                        <Select
-                            label="Timeline setting"
-                            value={timelineQuery?.timeline_type}
-                            onChange={(e) => {
-                                setTimelineQuery({
-                                    timeline_type: e.target.value,
-                                    cursor: null
-                                })
-                            }}
-                            options={[
-                                {
-                                    value: 'worldwide',
-                                    label: "Worldwide"
-                                },
-                                {
-                                    value: 'neighbor',
-                                    label: "Followings"
-                                },
-                            ]}
-                        />
                     </div>
                 </div>
             </div>

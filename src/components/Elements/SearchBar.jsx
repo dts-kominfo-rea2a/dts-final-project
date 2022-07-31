@@ -19,7 +19,7 @@ const SearchBar = () => {
     return (
         <div className="w-full">
             <Input type="text" size="small" placeholder="search" value={term} onChange={(e) => setTerm(e.target.value)} />
-            <div className={`${term === '' ? 'hidden' : 'block'} z-10 w-72 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 top-12 left-1/2 absolute`} style={{ transform: 'translate(-60%, 0px)' }}>
+            <div className={`${term === '' ? 'hidden' : 'block'} z-10 w-56 md:w-72 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 top-12 left-1/2 absolute`} style={{ transform: 'translate(-60%, 0px)' }}>
                 <div className="py-1 px-2 text-sm text-gray-700 dark:text-gray-200">
                     <div>
                         {

@@ -72,10 +72,10 @@ const UserProfilePage = () => {
     return (
         <div className="pt-4 w-full md:w-10/12 mx-auto">
             {!isLoading && !error && (
-                <div className="flex w-full">
+                <div className="flex w-full pr-2">
                     <div className="w-4/12 p-3 flex justify-center items-center">
                         <div className="rounded-full relative">
-                            <img className="border border-gray-600 border-spacing-2 rounded-full w-36 h-36" src={user?.profile_picture_url} alt={`${user?.name} profile`} style={{
+                            <img className="border border-gray-600 border-spacing-2 rounded-full w-24 h-24 md:w-36 md:h-36" src={user?.profile_picture_url} alt={`${user?.name} profile`} style={{
                                 objectFit: 'cover'
                             }} />
                             {

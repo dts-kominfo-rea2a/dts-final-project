@@ -41,7 +41,7 @@ const Navbar = () => {
                             <img src={Logo} className="w-8 shadow-2xl" alt="MiaowBook Logo" />
                         </Link>
                         <div>
-                            <div className="w-64">
+                            <div className="w-36 md:w-64">
                                 <SearchBar />
                             </div>
                         </div>
