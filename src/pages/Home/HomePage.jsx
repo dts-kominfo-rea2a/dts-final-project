@@ -17,7 +17,6 @@ const HomePage = () => {
         if (isLoggedin) {
             navigate('/timeline')
         }
-        console.log("w")
     }, [isLoggedin, navigate])
 
     useTitle('Welcome to Miaowbook')

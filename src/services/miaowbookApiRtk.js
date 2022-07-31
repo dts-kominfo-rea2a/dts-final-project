@@ -128,7 +128,6 @@ export const miaowbookApi = createApi({
                 if (result?.data?.id) {
                     tags.push({ type: 'Users', id: result?.data?.id })
                 }
-                console.log(tags, result)
                 return tags
             },
             async onCacheEntryAdded(
@@ -140,7 +139,6 @@ export const miaowbookApi = createApi({
             ) {
                 (cacheDataLoaded.then(({ data }) => {
                     const { status, data: user } = data
-                    console.log(data, status, user);
                     if (status === 'success') {
                         dispatch(setUser({
                             user
@@ -165,7 +163,6 @@ export const miaowbookApi = createApi({
                 if (result?.data?.id) {
                     tags.push({ type: 'Users', id: result?.data?.id })
                 }
-                console.log(tags, result)
                 return tags
             },
             // async onCacheEntryAdded(
@@ -271,6 +268,16 @@ export const miaowbookApi = createApi({
                 { type: 'Posts', id: 'PARTIAL-LIST' },
             ],
         }),
+        unlikePost: builder.mutation({
+            query: (params) => ({
+                url: `/post/${params.id}/unlike`,
+                method: "POST"
+            }),
+            invalidatesTags: (result, error, { id }) => [
+                { type: 'Posts', id },
+                { type: 'Posts', id: 'PARTIAL-LIST' },
+            ],
+        }),
         deletePost: builder.mutation({
             query: ({ user_id, ...params }) => ({
                 url: `/post/${params.id}`,
@@ -282,12 +289,13 @@ export const miaowbookApi = createApi({
                 { type: 'Posts', id: 'PARTIAL-LIST' },
             ],
         }),
-        unlikePost: builder.mutation({
-            query: (params) => ({
-                url: `/post/${params.id}/unlike`,
-                method: "POST"
+        updatePost: builder.mutation({
+            query: ({ post_id, ...body }) => ({
+                url: `/post/${post_id}`,
+                method: "POST",
+                body
             }),
-            invalidatesTags: (result, error, { id }) => [
+            invalidatesTags: (result, error, { id, user_id }) => [
                 { type: 'Posts', id },
                 { type: 'Posts', id: 'PARTIAL-LIST' },
             ],
@@ -300,7 +308,6 @@ export const miaowbookApi = createApi({
             }),
             providesTags: (result, error, arg) => {
                 const tag = result ? [{ type: 'PostComments', id: arg.post_id }] : []
-                console.log(tag);
                 return tag;
             },
         }),
@@ -348,4 +355,5 @@ export const {
     useLogoutMutation,
     useSearchUserQuery,
     useUpdateUserProfileMutation,
+    useUpdatePostMutation
 } = miaowbookApi

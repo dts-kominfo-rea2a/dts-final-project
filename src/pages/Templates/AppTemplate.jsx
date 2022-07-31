@@ -17,7 +17,6 @@ const AppTemplate = () => {
 
     useEffect(() => {
         if (!error && !isLoading) {
-            console.log(me.data)
             dispatcher(setUser({
                 user: me.data
             }))

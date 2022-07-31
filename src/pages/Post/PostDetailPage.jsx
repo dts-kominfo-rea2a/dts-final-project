@@ -1,5 +1,5 @@
 import { faHeart, faTrash } from "@fortawesome/free-solid-svg-icons";
-import { faComment, faHeart as faHeartEmpty } from "@fortawesome/free-regular-svg-icons";
+import { faComment, faEdit, faHeart as faHeartEmpty, faUser } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import moment from "moment";
 import React, { useEffect, useRef, useState } from "react";
@@ -13,6 +13,7 @@ import { useSelector } from "react-redux";
 import { selectUser } from "../../store/userStore";
 import Swal from "sweetalert2";
 import { toast } from "../../utils/tools";
+import EditCaption from "./Elements/EditCaption";
 
 const PostDetailPage = () => {
     useTitle('Post')
@@ -21,6 +22,8 @@ const PostDetailPage = () => {
     const [isPostingComment, setIsPostingComment] = useState("")
     const [cursor, setCursor] = useState(null)
     const [comments, setComments] = useState([])
+    const [isEdit, setIsEdit] = useState(false)
+
     const me = useSelector(selectUser);
     const { data, isLoading, error, isFetching } = useDetailPostQuery({ post_id })
 
@@ -81,7 +84,6 @@ const PostDetailPage = () => {
         }
         const nextCursor = paginatedCommentData?.data?.next_cursor;
         if (nextCursor === null) return;
-        console.log(nextCursor)
         setCursor(nextCursor)
     }
 
@@ -119,6 +121,12 @@ const PostDetailPage = () => {
         }
     }
 
+    const editCaptionCallback = ({ success, cancel }) => {
+        if (success || cancel) {
+            setIsEdit(false)
+        }
+    }
+
 
     const user_name = data?.data?.user?.name || null
     useTitle(user_name === null ? 'Post' : `${user_name}'s post`)
@@ -128,7 +136,7 @@ const PostDetailPage = () => {
         <div className="pt-4 w-full md:w-10/12 mx-auto">
             {
                 !isLoading && !error && (
-                    <div className="flex flex-col md:flex-row bg-white border border-gray-100 rounded-md" style={{minHeight: "600px"}}>
+                    <div className="flex flex-col md:flex-row bg-white border border-gray-100 rounded-md" style={{ minHeight: "600px" }}>
                         <div className="w-full md:w-7/12 bg-gray-900 flex items-center">
                             <img className="w-full" src={data?.data?.media_url} alt={data?.data?.caption} style={{
                                 objectFit: "contain",
@@ -159,77 +167,107 @@ const PostDetailPage = () => {
                             <div ref={refDropdown} id="navbar-dropdown" className={`${showDropdown ? 'block' : 'hidden'} z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 top-12 right-0 absolute`}>
                                 <ul className="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefault" onClick={(e) => setShowDropdown(false)}>
                                     {
-                                        me?.id === data?.data?.user?.id && (
-                                            <li onClick={deletePostHandler}>
-                                                <span className="block py-2 px-4 hover:bg-gray-100 w-full cursor-pointer" role="button">
-                                                    <FontAwesomeIcon icon={faTrash} /> Delete This
-                                                </span>
+                                        me?.id === data?.data?.user?.id ? (
+                                            <>
+                                                <li onClick={deletePostHandler}>
+                                                    <span className="block py-2 px-4 hover:bg-gray-100 w-full cursor-pointer" role="button">
+                                                        <FontAwesomeIcon icon={faTrash} /> Delete This
+                                                    </span>
+                                                </li>
+                                                {
+                                                    !isEdit && (
+                                                        <li onClick={(e) => setIsEdit(!isEdit)}>
+                                                            <span className="block py-2 px-4 hover:bg-gray-100 w-full cursor-pointer" role="button">
+                                                                <FontAwesomeIcon icon={faEdit} /> Edit Caption
+                                                            </span>
+                                                        </li>
+                                                    )
+                                                }
+                                            </>
+                                        ) : (
+                                            <li>
+                                                <Link className="block py-2 px-4 hover:bg-gray-100 w-full cursor-pointer" to={`/u/${data?.data?.user?.username}`}>
+                                                    <FontAwesomeIcon icon={faUser} /> View Profile
+                                                </Link>
                                             </li>
                                         )
                                     }
+
                                 </ul>
                             </div>
 
                             <hr className="mt-2" />
 
                             <div className="flex flex-col h-[calc(100%-3rem)]">
-                                <div className="grow flex flex-col gap-2 text-sm mt-4 overflow-scroll h-64">
-                                    <div>
-                                        <Link to={`/u/${data?.data?.user?.username}`}>
-                                            <span className="font-bold">{data?.data?.user?.username}</span>
-                                        </Link> <span>{data?.data?.caption}</span> <span className="text-gray-400">{humanDiffDate}</span>
-                                    </div>
+                                {
+                                    isEdit ? (
+                                        <EditCaption
+                                            post={data?.data}
+                                            callback={editCaptionCallback}
+                                        />
+                                    )
+                                        : (
+                                            <>
+                                                <div className="grow flex flex-col gap-2 text-sm mt-4 overflow-scroll h-64">
+                                                    <div>
+                                                        <Link to={`/u/${data?.data?.user?.username}`}>
+                                                            <span className="font-bold">{data?.data?.user?.username}</span>
+                                                        </Link> <span>{data?.data?.caption}</span> <span className="text-gray-400">{humanDiffDate}</span>
+                                                    </div>
 
-                                    {
-                                        paginatedCommentData?.data?.next_cursor !== null && (
-                                            <button
-                                                className="flex justify-center text-gray-400" disabled={isListCommentFetching || isListCommentLoading}
-                                                onClick={loadMoreComment}
-                                            >
-                                                <span>{isListCommentFetching ? 'Loading...' : 'Load older comments'}</span>
-                                            </button>
-                                        )
-                                    }
-                                    {
-                                        comments.length > 0 && (
-                                            comments.slice().reverse().map(comment => (
-                                                <div key={comment.id}>
-                                                    <Link to={`/u/${comment.user?.username}`}>
-                                                        <span className="font-bold">{comment.user?.username}</span>
-                                                    </Link> <span>{comment.content}</span> <span className="text-gray-400">{moment(comment.created_at).fromNow()}</span>
+                                                    {
+                                                        paginatedCommentData?.data?.next_cursor !== null && (
+                                                            <button
+                                                                className="flex justify-center text-gray-400" disabled={isListCommentFetching || isListCommentLoading}
+                                                                onClick={loadMoreComment}
+                                                            >
+                                                                <span>{isListCommentFetching ? 'Loading...' : 'Load older comments'}</span>
+                                                            </button>
+                                                        )
+                                                    }
+                                                    {
+                                                        comments.length > 0 && (
+                                                            comments.slice().reverse().map(comment => (
+                                                                <div key={comment.id}>
+                                                                    <Link to={`/u/${comment.user?.username}`}>
+                                                                        <span className="font-bold">{comment.user?.username}</span>
+                                                                    </Link> <span>{comment.content}</span> <span className="text-gray-400">{moment(comment.created_at).fromNow()}</span>
+                                                                </div>
+                                                            ))
+                                                        )
+                                                    }
                                                 </div>
-                                            ))
-                                        )
-                                    }
-                                </div>
-                                <div className="h-1/6 flex flex-col items-end border-t border-gray-300">
-                                    <div className="w-full flex py-3 gap-4">
+                                                <div className="h-1/6 flex flex-col items-end border-t border-gray-300">
+                                                    <div className="w-full flex py-3 gap-4">
 
-                                        <div className="flex gap-2">
-                                            <LikeButton postId={data?.data?.id} liked={data?.data?.is_liked} />
-                                            <div className="text-sm">
-                                                <span className="font-bold">{data?.data?.likes_count}</span>
-                                            </div>
-                                        </div>
+                                                        <div className="flex gap-2">
+                                                            <LikeButton postId={data?.data?.id} liked={data?.data?.is_liked} />
+                                                            <div className="text-sm">
+                                                                <span className="font-bold">{data?.data?.likes_count}</span>
+                                                            </div>
+                                                        </div>
 
 
-                                        <button>
-                                            <div className="flex gap-2">
-                                                <FontAwesomeIcon icon={faComment} size="lg" />
-                                                <div className="text-sm">
-                                                    <span className="font-bold">{data?.data?.comments_count}</span>
+                                                        <button>
+                                                            <div className="flex gap-2">
+                                                                <FontAwesomeIcon icon={faComment} size="lg" />
+                                                                <div className="text-sm">
+                                                                    <span className="font-bold">{data?.data?.comments_count}</span>
+                                                                </div>
+                                                            </div>
+                                                        </button>
+                                                    </div>
+                                                    <div className="flex w-full h-full justify-center items-center">
+                                                        <textarea disabled={isPostingComment} rows="1" className="block mx-0 p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-gray-500 focus:border-gray-500" placeholder="add comment" onClick={(e) => e.target.select()} value={newComment} onChange={(e) => setNewComment(e.target.value)}></textarea>
+                                                        <button type="submit" className="inline-flex justify-center p-2 text-gray-600 rounded-full cursor-pointer" onClick={addComment} disabled={isPostingComment}>
+                                                            <svg aria-hidden="true" className="w-6 h-6 rotate-90" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path></svg>
+                                                            <span className="sr-only">Send message</span>
+                                                        </button>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </button>
-                                    </div>
-                                    <div className="flex w-full h-full justify-center items-center">
-                                        <textarea disabled={isPostingComment} rows="1" className="block mx-0 p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-gray-500 focus:border-gray-500" placeholder="add comment" onClick={(e) => e.target.select()} value={newComment} onChange={(e) => setNewComment(e.target.value)}></textarea>
-                                        <button type="submit" className="inline-flex justify-center p-2 text-gray-600 rounded-full cursor-pointer" onClick={addComment} disabled={isPostingComment}>
-                                            <svg aria-hidden="true" className="w-6 h-6 rotate-90" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path></svg>
-                                            <span className="sr-only">Send message</span>
-                                        </button>
-                                    </div>
-                                </div>
+                                            </>
+                                        )
+                                }
                             </div>
                         </div>
                     </div >

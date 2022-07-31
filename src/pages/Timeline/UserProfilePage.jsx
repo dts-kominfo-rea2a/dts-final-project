@@ -29,7 +29,6 @@ const UserProfilePage = () => {
         if (username !== usernamePrev && usernamePrev !== undefined) {
             setCursor(null)
             setPosts([])
-            console.log(username, usernamePrev);
         }
 
         if (!errorUserPosts && !isUserPostLoading && !isUserPostsUninitialized && !isUserPostsFetching) {
@@ -46,7 +45,7 @@ const UserProfilePage = () => {
                 })
             }
         }
-    }, [userPosts, errorUserPosts, isUserPostLoading, username, usernamePrev, isUserPostsFetching, isUserPostsUninitialized])
+    }, [userPosts, errorUserPosts, isUserPostLoading, username, usernamePrev, isUserPostsFetching, isUserPostsUninitialized, cursor])
 
     const loadMorePostHandler = () => {
         if (isUserPostLoading || isUserPostsFetching) {

@@ -12,7 +12,6 @@ export const convertToSelectOptions = (data, valueField, labelField) => {
 }
 
 export const transformResponse = (response) => {
-    console.log("RESP", response);
     if (response.error) {
         const errors = [];
 

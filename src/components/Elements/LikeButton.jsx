@@ -11,11 +11,15 @@ const LikeButton = ({ postId: post_id, liked, onUpdate = null }) => {
     const [like] = useLikePostMutation()
     const [unlike] = useUnlikePostMutation()
     const likeHandler = async () => {
-        const { isOk } = transformResponse(isLiked ? await unlike({ id: post_id }) : await like({ id: post_id }))
+        const isLikedTemp = isLiked
+        setIsLiked(!isLiked)
+        const { isOk } = transformResponse(isLikedTemp ? await unlike({ id: post_id }) : await like({ id: post_id }))
         if (isOk) {
             if (onUpdate) {
-                onUpdate({ likes_count: isLiked ? -1 : 1 })
+                onUpdate({ likes_count: isLikedTemp ? -1 : 1 })
             }
+            setIsLiked(!isLikedTemp)
+        } else {
             setIsLiked(!isLiked)
         }
     }

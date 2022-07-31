@@ -20,7 +20,6 @@ const EditProfilePage = () => {
         user_type_id: me?.user_type?.id || '',
         bio: me?.bio || ''
     }
-    console.log(me, formInitialValues)
 
     const [updateProfile, { isLoading }] = useUpdateUserProfileMutation()
 
