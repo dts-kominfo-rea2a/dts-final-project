@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useLogoutMutation, useMeQuery } from "../../services/miaowbookApiRtk";
+import { miaowbookApi, useLogoutMutation, useMeQuery } from "../../services/miaowbookApiRtk";
 import { loggedOut, selectIsLoggedIn } from "../../store/userStore";
 
 const LogoutPage = () => {
@@ -18,6 +18,7 @@ const LogoutPage = () => {
             const logoutApp = async () => {
                 await logout()
                 dispatcher(loggedOut())
+                dispatcher(miaowbookApi.util.resetApiState())
                 navigate('/')
             }
 

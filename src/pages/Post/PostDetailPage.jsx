@@ -128,11 +128,11 @@ const PostDetailPage = () => {
         <div className="pt-4 w-full md:w-10/12 mx-auto">
             {
                 !isLoading && !error && (
-                    <div className="flex flex-col md:flex-row bg-white border border-gray-100 rounded-md" style={{minHeight: "560px"}}>
+                    <div className="flex flex-col md:flex-row bg-white border border-gray-100 rounded-md" style={{minHeight: "600px"}}>
                         <div className="w-full md:w-7/12 bg-gray-900 flex items-center">
                             <img className="w-full" src={data?.data?.media_url} alt={data?.data?.caption} style={{
                                 objectFit: "contain",
-                                maxHeight: "560px"
+                                maxHeight: "600px"
                             }} />
                         </div>
                         <div className="w-full md:w-5/12 mt-3 px-3 relative">

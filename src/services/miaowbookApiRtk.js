@@ -20,7 +20,7 @@ const baseQuery = fetchBaseQuery({
 
         return headers
     },
-    mode:'cors'
+    mode: 'cors'
 })
 
 const globalExceptionEndpoints = ['login']
@@ -226,6 +226,7 @@ export const miaowbookApi = createApi({
             invalidatesTags: (result) => {
                 const tags = []
                 if (result) {
+                    tags.push({ type: 'Users', id: result?.data?.user?.id })
                     tags.push({ type: 'Posts', id: `PARTIAL-LIST-${result.data.user.id}` })
                     tags.push({ type: 'Posts', id: `PARTIAL-LIST` })
                 }
@@ -346,5 +347,5 @@ export const {
     useDeletePostMutation,
     useLogoutMutation,
     useSearchUserQuery,
-    useUpdateUserProfileMutation
+    useUpdateUserProfileMutation,
 } = miaowbookApi
