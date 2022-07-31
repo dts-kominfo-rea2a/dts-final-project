@@ -11,30 +11,42 @@ import InfiniteScroll from "react-infinite-scroller";
 import FollowButton from "../../components/Elements/FollowButton";
 import Spinner from "../../components/Elements/Spinner"
 import useTitle from "../../hooks/useTitle";
+import usePrevious from "../../hooks/usePrevious";
 const UserProfilePage = () => {
     const { username } = useParams();
     useTitle(`${username}'s profile page `)
     const me = useSelector(selectUser)
     const [posts, setPosts] = useState([])
     const [cursor, setCursor] = useState(null)
-
     const { data: user, isLoading, error } = useFindUserByUsernameQuery({ username })
-    const { data: userPosts, errorUserPosts, isLoading: isUserPostLoading, isFetching: isUserPostsFetching } = useListUserPostQuery(user?.id ? { user_id: user.id, cursor } : skipToken)
+    const { data: userPosts, errorUserPosts, isLoading: isUserPostLoading, isFetching: isUserPostsFetching, isUserPostsUninitialized } = useListUserPostQuery(user?.id ? { user_id: user.id, cursor } : skipToken)
 
     const inputFileRef = createRef()
 
+    const usernamePrev = usePrevious(username)
+
     useEffect(() => {
-        if (!errorUserPosts && !isUserPostLoading) {
-            const newPosts = userPosts?.data?.data || []
-            setPosts((posts) => {
-                const existingids = posts.map(({ id }) => id);
-                return [
-                    ...posts,
-                    ...newPosts.filter(({ id }) => existingids.indexOf(id) <= -1)
-                ]
-            })
+        if (username !== usernamePrev && usernamePrev !== undefined) {
+            setCursor(null)
+            setPosts([])
+            console.log(username, usernamePrev);
         }
-    }, [userPosts, errorUserPosts, isUserPostLoading])
+
+        if (!errorUserPosts && !isUserPostLoading && !isUserPostsUninitialized && !isUserPostsFetching) {
+            const newPosts = userPosts?.data?.data || []
+            if (username !== usernamePrev || cursor === null) {
+                setPosts(newPosts)
+            } else {
+                setPosts((posts) => {
+                    const existingids = posts.map(({ id }) => id);
+                    return [
+                        ...posts,
+                        ...newPosts.filter(({ id }) => existingids.indexOf(id) <= -1)
+                    ]
+                })
+            }
+        }
+    }, [userPosts, errorUserPosts, isUserPostLoading, username, usernamePrev, isUserPostsFetching, isUserPostsUninitialized])
 
     const loadMorePostHandler = () => {
         if (isUserPostLoading || isUserPostsFetching) {

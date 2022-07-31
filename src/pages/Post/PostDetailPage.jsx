@@ -112,7 +112,7 @@ const PostDetailPage = () => {
 
         if (isConfirmed) {
             const { isOk, message, status } = transformResponse(await deletePost({ id: post_id }))
-            toast({ title: message, icon: status || 'error'})
+            toast({ title: message, icon: status || 'error' })
             if (isOk) {
                 navigate(`/u/${username}`)
             }
@@ -128,11 +128,12 @@ const PostDetailPage = () => {
         <div className="pt-4 w-full md:w-10/12 mx-auto">
             {
                 !isLoading && !error && (
-                    <div className="flex flex-col md:flex-row bg-white border border-gray-100 rounded-md" style={{
-                        minHeight: "calc(100vh - 8rem)"
-                    }}>
+                    <div className="flex flex-col md:flex-row bg-white border border-gray-100 rounded-md" style={{minHeight: "560px"}}>
                         <div className="w-full md:w-7/12 bg-gray-900 flex items-center">
-                            <img className="w-full" src={data?.data?.media_url} alt={data?.data?.caption} />
+                            <img className="w-full" src={data?.data?.media_url} alt={data?.data?.caption} style={{
+                                objectFit: "contain",
+                                maxHeight: "560px"
+                            }} />
                         </div>
                         <div className="w-full md:w-5/12 mt-3 px-3 relative">
                             <div className="flex justify-between">
@@ -171,8 +172,8 @@ const PostDetailPage = () => {
 
                             <hr className="mt-2" />
 
-                            <div className="flex flex-col h-[calc(100%-4rem)]">
-                                <div className="grow flex flex-col gap-2 text-sm mt-4 overflow-scroll h-4/6">
+                            <div className="flex flex-col h-[calc(100%-3rem)]">
+                                <div className="grow flex flex-col gap-2 text-sm mt-4 overflow-scroll h-64">
                                     <div>
                                         <Link to={`/u/${data?.data?.user?.username}`}>
                                             <span className="font-bold">{data?.data?.user?.username}</span>

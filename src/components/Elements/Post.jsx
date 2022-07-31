@@ -23,7 +23,7 @@ const Post = ({ post }) => {
                         <div className="relative">
                             <img src={post?.user.profile_picture_url} alt="foto profile" className="rounded-full w-8 h-8 object-cover border-gray-600 border border-spacing-2" />
                             <div className="absolute -bottom-1 -right-1 border-spacing-2">
-                                <span className="">😺</span>
+                                <span className="">{post?.user?.user_type?.emoji}</span>
                             </div>
                         </div>
                         <div className="flex flex-col">
