@@ -67,7 +67,7 @@ const Navbar = (props) => {
 									</Button>
 								</Link>
 							))}
-							<Link to={'/signin'} style={{ textDecoration: 'none' }}>
+							<Link to={'/auth/signin'} style={{ textDecoration: 'none' }}>
 								<Button sx={{ textTransform: 'capitalize' }} variant='contained' disableElevation>Sign in</Button>
 							</Link>
 							<SwitchThemeComponent />

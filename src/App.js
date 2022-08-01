@@ -22,7 +22,6 @@ function App() {
     }
   }, [darkMode]);
 
-  // const getDesignTokens = ({darkTheme, lightTheme})
 
   const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
 
@@ -34,8 +33,8 @@ function App() {
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<HomeIndex />} />
-          <Route path="/signin" element={<LoginPage />} />
-          <Route path="/signup" element={<RegisterPage />} />
+          <Route path="/auth/signin" element={<LoginPage />} />
+          <Route path="/auth/signup" element={<RegisterPage />} />
         </Route>
       </Routes>
     </ThemeProvider>

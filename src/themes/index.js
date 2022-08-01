@@ -4,7 +4,7 @@ const getDesignTokens = (mode) => ({
     ...(mode === "light"
       ? {
           primary: {
-            main: "#4B0082",
+            main: "#4B0888",
           },
           secondary: {
             main: "#48426d",
@@ -41,7 +41,7 @@ const getDesignTokens = (mode) => ({
       : /** pallete for dark mode */
         {
           primary: {
-            main: "#4B0082",
+            main: "#4B0882",
           },
           secondary: {
             main: "#48426d",
@@ -88,7 +88,7 @@ const getDesignTokens = (mode) => ({
       },
       styleOverrides: {
         root: {
-          borderRadius: '8px'
+          borderRadius: '12px'
         }
       }
     },
