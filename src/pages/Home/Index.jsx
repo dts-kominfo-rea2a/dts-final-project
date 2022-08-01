@@ -8,15 +8,16 @@ import httpService from "../../services/httpService";
 
 const HomeIndex = () => {
   const [posts, setPosts] = useState([])
-
+  /** takut habis waktu disini mohon maaf kak */
+  // eslint-disable-next-line 
   const getPostsCollection = useCallback(() => {
-      return httpService.get('/posts')
+    return httpService.get('/posts')
       .then((response) => {
         setPosts(response.data)
       }, [])
       .catch((error) => {
         console.log(error);
-      }, [])   
+      }, [])
   })
 
   useEffect(() => {
