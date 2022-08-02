@@ -1,29 +1,17 @@
 import { Box, Button, Container, Divider, Grid, Typography } from "@mui/material"
-import { useCallback, useEffect, useState } from "react";
+import { useEffect } from "react";
 import CardComponent from "../../components/CardComponent"
 import ChipComponent from "../../components/ChipComponent";
 import TypingAnimation from "../../components/typing-animation/TypingAnimation";
-import httpService from "../../services/httpService";
+import { useGetAllPostsQuery } from "../../services/postsService";
 
 
 const HomeIndex = () => {
-  const [posts, setPosts] = useState([])
-  /** takut habis waktu disini mohon maaf kak */
-  // eslint-disable-next-line 
-  const getPostsCollection = useCallback(() => {
-    return httpService.get('/posts')
-      .then((response) => {
-        setPosts(response.data)
-      }, [])
-      .catch((error) => {
-        console.log(error);
-      }, [])
-  })
+  const { data, error, isLoading, isSuccess } = useGetAllPostsQuery()
 
   useEffect(() => {
     document.title = "blogiseng -- welcome";
-    getPostsCollection();
-  }, [getPostsCollection]);
+  }, []);
 
   return (
     <>
@@ -47,7 +35,7 @@ const HomeIndex = () => {
           <Grid item xs={8} >
             <Box sx={{ gap: '10px' }}>
               <Typography variant="h6" sx={{ padding: '12px 0' }} >New Articles</Typography>
-              {
+              {/* {
                 posts.map((post) => (
                   <CardComponent
                     key={post.id}
@@ -59,6 +47,26 @@ const HomeIndex = () => {
                     publishDate={post.created_at}
                   />
                 ))
+              }  */}
+
+              <div>
+                {error && <p>an error occured</p>}
+                {isLoading && <p>Loading...</p>}
+              </div>
+              {
+                isSuccess && (
+                  data.map((post) => (
+                    <CardComponent
+                      key={post.id}
+                      username={post.author[0].username}
+                      title={post.title}
+                      description={post.content}
+                      href={`/posts/${post.id}`}
+                      images={post.postPicture.url}
+                      publishDate={post.created_at}
+                    />
+                  ))
+                )
               }
             </Box>
           </Grid>

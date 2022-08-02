@@ -9,6 +9,7 @@ import { createTheme, ThemeProvider } from "@mui/material";
 import { useSelector } from "react-redux";
 import getDesignTokens from "./themes";
 import { useState, useMemo } from "react";
+import DetailPosts from "./pages/Home/DetailPosts";
 
 function App() {
   const [mode, setMode] = useState("light");
@@ -33,6 +34,7 @@ function App() {
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<HomeIndex />} />
+          <Route path="/posts/:id" element={<DetailPosts />} />
           <Route path="/auth/signin" element={<LoginPage />} />
           <Route path="/auth/signup" element={<RegisterPage />} />
         </Route>
