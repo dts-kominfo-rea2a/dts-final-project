@@ -2,12 +2,10 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { loggedOut, setUser } from '../store/userStore'
 import { toast } from '../utils/tools'
 import { convertObjectToFormData, convertToSelectOptions } from '../utils/utils'
-import { API_URL } from './miaowbookApi'
+// import { API_URL } from './miaowbookApi'
 
-const tenSecondKey = () => {
-    return Math.round((new Date()).getTime() / (1000 * 10))
-}
-
+const API_URL = process.env.REACT_APP_API_URL
+console.log(API_URL, process.env);
 const baseQuery = fetchBaseQuery({
     baseUrl: API_URL,
     prepareHeaders: (headers, { getState }) => {

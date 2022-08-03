@@ -15,6 +15,9 @@ const AppTemplate = () => {
     const dispatcher = useDispatch()
     const navigate = useNavigate()
 
+    const isMutating = useSelector(state => Object.values(state['miaowbook-api'].mutations).some(query => query.status === 'pending'))
+    const isFetching = useSelector(state => Object.values(state['miaowbook-api'].queries).some(query => query.status === 'pending'))
+
     useEffect(() => {
         if (!error && !isLoading) {
             dispatcher(setUser({
@@ -35,6 +38,14 @@ const AppTemplate = () => {
             <div>
                 <div className="fixed w-full z-10">
                     <Navbar />
+                    <div className="w-full mb-4">
+                        <div className="animate-pulse flex">
+                            <div className="flex-1">
+                                <div className={`bg-gray-400 h-0.5 ${isMutating || isFetching ? 'visible' : 'invisible'}`}></div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
                 <Container size="sm">
                     <div className="md:w-10/12 mx-auto py-4 md:px-4 pt-14 min-h-screen">

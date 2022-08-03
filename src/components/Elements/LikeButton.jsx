@@ -13,13 +13,16 @@ const LikeButton = ({ postId: post_id, liked, onUpdate = null }) => {
     const likeHandler = async () => {
         const isLikedTemp = isLiked
         setIsLiked(!isLiked)
+        if (onUpdate) {
+            onUpdate({ likes_count: isLikedTemp ? -1 : 1 })
+        }
         const { isOk } = transformResponse(isLikedTemp ? await unlike({ id: post_id }) : await like({ id: post_id }))
         if (isOk) {
-            if (onUpdate) {
-                onUpdate({ likes_count: isLikedTemp ? -1 : 1 })
-            }
             setIsLiked(!isLikedTemp)
         } else {
+            if (onUpdate) {
+                onUpdate({ likes_count: isLikedTemp ? 1 : -1 })
+            }
             setIsLiked(!isLiked)
         }
     }

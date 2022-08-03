@@ -2,6 +2,7 @@ import { Form, Formik } from 'formik';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import SecondaryButton from '../../components/Buttons/SecondaryButton';
+import ChangableProfilePicture from '../../components/Elements/ChangableProfilePicture';
 import Field from '../../components/Forms/Field';
 import SelectField from '../../components/Forms/SelectField';
 import TextAreaField from '../../components/Forms/TextAreaField';
@@ -38,8 +39,17 @@ const EditProfilePage = () => {
     }
     return (
 
-        <div className="pt-4 w-full md:w-10/12 mx-auto">
-            <div className='md:bg-white w-full md:border md:border-gray-200 rounded-md p-4'>
+        <div className="pt-4 w-full md:w-10/12 mx-auto flex flex-col md:flex-row gap-4">
+            <div className='md:bg-white w-full md:w-2/5 md:border md:border-gray-200 rounded-md p-4'>
+                <h1 className='text-2xl'>Profile Picture</h1>
+
+                <div className='w-full h-full'>
+                    <div className='flex items-center justify-center h-full'>
+                        <ChangableProfilePicture user={me} size="lg" />
+                    </div>
+                </div>
+            </div>
+            <div className='md:bg-white w-full md:w-3/5 md:border md:border-gray-200 rounded-md p-4'>
                 <h1 className='text-2xl'>Edit Profile</h1>
 
                 <Formik

@@ -12,6 +12,7 @@ import FollowButton from "../../components/Elements/FollowButton";
 import Spinner from "../../components/Elements/Spinner"
 import useTitle from "../../hooks/useTitle";
 import usePrevious from "../../hooks/usePrevious";
+import ChangableProfilePicture from "../../components/Elements/ChangableProfilePicture";
 const UserProfilePage = () => {
     const { username } = useParams();
     useTitle(`${username}'s profile page `)
@@ -20,8 +21,6 @@ const UserProfilePage = () => {
     const [cursor, setCursor] = useState(null)
     const { data: user, isLoading, error } = useFindUserByUsernameQuery({ username })
     const { data: userPosts, errorUserPosts, isLoading: isUserPostLoading, isFetching: isUserPostsFetching, isUserPostsUninitialized } = useListUserPostQuery(user?.id ? { user_id: user.id, cursor } : skipToken)
-
-    const inputFileRef = createRef()
 
     const usernamePrev = usePrevious(username)
 
@@ -57,40 +56,12 @@ const UserProfilePage = () => {
         setCursor(nextCursor)
     }
 
-    const [updateProfilePicture] = useUpdateProfilePictureMutation()
-
-    const fileUploadHandler = (e) => {
-        const file = inputFileRef.current.files[0] || null
-        if (file === null) return;
-
-        updateProfilePicture({
-            photo: file
-        })
-        // inputFileRef.current.
-    }
     return (
         <div className="pt-4 w-full md:w-10/12 mx-auto">
             {!isLoading && !error && (
                 <div className="flex w-full pr-2">
-                    <div className="w-4/12 p-3 flex justify-center items-center">
-                        <div className="rounded-full relative">
-                            <img className="border border-gray-600 border-spacing-2 rounded-full w-24 h-24 md:w-36 md:h-36" src={user?.profile_picture_url} alt={`${user?.name} profile`} style={{
-                                objectFit: 'cover'
-                            }} />
-                            {
-                                me?.id === user?.id && (
-                                    <div
-                                        className="flex justify-center items-center absolute bg-gray-700 top-0 w-full h-full rounded-full opacity-0 hover:opacity-25 cursor-pointer"
-                                        onClick={(e) => inputFileRef.current.click()}
-                                    >
-                                        <form className="hidden">
-                                            <input type="file" ref={inputFileRef} accept="image/*" onChange={fileUploadHandler} />
-                                        </form>
-                                        <span className="text-sm text-gray-50">Change Picture</span>
-                                    </div>
-                                )
-                            }
-                        </div>
+                    <div className="w-4/12 p-3">
+                        <ChangableProfilePicture user={user} />
                     </div>
                     <div className="w-8/12 pt-4 flex flex-col gap-6 pr-2">
                         <div className="flex gap-4 items-center">

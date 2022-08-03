@@ -65,7 +65,7 @@ const Post = ({ post }) => {
                     <div className="text-gray-400">
                         {humanDiffDate}
                     </div>
-                    <div className="border-t border-gray-300 pt-2">
+                    <div className="border-b md:border-b-0 md:border-t border-gray-300 py-2">
                         <div className="flex flex-row w-full text-center">
                             <div className="w-1/2">
                                 <Link to={`/u/${post.user.username}`}>
