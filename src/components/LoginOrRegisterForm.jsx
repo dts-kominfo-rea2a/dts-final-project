@@ -22,7 +22,7 @@ import { useNavigate } from "react-router-dom";
 const LoginOrRegisterForm = ({ loginOrRegister }) => {
   // gunakan hooks useNavigate
   const navigate = useNavigate();
-  const [user, loading, error] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth);
 
   const [credential, setCredential] = useState({
     email: "",
