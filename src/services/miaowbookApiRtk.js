@@ -5,7 +5,7 @@ import { convertObjectToFormData, convertToSelectOptions } from '../utils/utils'
 // import { API_URL } from './miaowbookApi'
 
 const API_URL = process.env.REACT_APP_API_URL
-console.log(API_URL, process.env);
+
 const baseQuery = fetchBaseQuery({
     baseUrl: API_URL,
     prepareHeaders: (headers, { getState }) => {
