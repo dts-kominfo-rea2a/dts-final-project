@@ -1,17 +1,29 @@
-import HomePage from './containers/HomePage';
-import NavBar from './components/NavBar';
-import Footer from './components/Footer';
-import Main from './containers/Main';
+//import { Box } from "@mui/material";
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import NavBar from "./components/NavBar";
+import HomePage from "./containers/HomePage";
+import Footer from "./components/Footer";
+import LoginPage from "./containers/LoginPage";
+import RegisterPage from "./containers/RegisterPage";
+import StandingPage from "./containers/StandingPage";
+
 function App() {
   return (
-    <div className="App">
-        <NavBar/>
-        <HomePage/>
-        <Footer/>
-       
-        {/* <Main/> */}
-      
-    </div>
+    <>
+    <BrowserRouter>
+    <NavBar/>
+    <Routes>
+      <Route path="/" element={<HomePage />}></Route>
+      <Route path="/detail/:id" element={<StandingPage/>}>
+      </Route>
+      {/* <Route path="/detail/:id" element={<StandingPage/>}></Route> */}
+      <Route path="login" element={<LoginPage />} />
+      <Route path="register" element={<RegisterPage />} />
+    </Routes>
+    <Footer/>
+  </BrowserRouter>
+  </>
   );
 }
 

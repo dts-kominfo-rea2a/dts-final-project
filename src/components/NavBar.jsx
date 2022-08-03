@@ -1,9 +1,9 @@
 import React from "react";
 
 import {
-  ThemeProvider,
-  createTheme,
-  CssBaseline,
+  //ThemeProvider,
+  //createTheme,
+  //CssBaseline,
   AppBar,
   Box,
   Button,
@@ -16,10 +16,8 @@ import {
   Tooltip,
   MenuItem,
 } from "@mui/material";
-import Notifications from '@mui/icons-material/NotificationsNone';
-import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
-import AdbIcon from '@mui/icons-material/Adb';
+//import Notifications from '@mui/icons-material/NotificationsNone';
+import SportsSoccerTwoToneIcon from '@mui/icons-material/SportsSoccerTwoTone';
 
 
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -31,7 +29,7 @@ import { useNavigate } from "react-router-dom";
 
 import { keluarDariApps } from "../authentication/firebase";
 
-const pages = ["Makanan", "Minuman"];
+const pages = [];
 const settings = ["Logout"];
 
 const NavBar = () => {
@@ -72,7 +70,8 @@ const NavBar = () => {
       <AppBar position="static">
         <Container maxWidth="xl">
           <Toolbar disableGutters>
-            <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+            <SportsSoccerTwoToneIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+            {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
             <Typography
               variant="h6"
               noWrap
@@ -88,7 +87,7 @@ const NavBar = () => {
                 textDecoration: "none",
               }}
             >
-              Home
+              Leagues
             </Typography>
 
             <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -100,7 +99,7 @@ const NavBar = () => {
                 onClick={handleOpenNavMenu}
                 color="inherit"
               >
-                <MenuIcon/>
+                {/* <MenuIcon/> */}
               </IconButton>
               <Menu
                 id="menu-appbar"
@@ -127,8 +126,9 @@ const NavBar = () => {
                 ))}
               </Menu>
             </Box>
-           
-            <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+                  
+            <SportsSoccerTwoToneIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+            {/* <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} /> */}
             <Typography
               variant="h5"
               noWrap
@@ -145,7 +145,7 @@ const NavBar = () => {
                 textDecoration: "none",
               }}
             >
-              Home
+              Leagues
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
               {pages.map((page) => (
