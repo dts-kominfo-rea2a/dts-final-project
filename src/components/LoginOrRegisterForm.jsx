@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import {
   auth, 
   loginUsrWithEmailAndPassword, 
-  loginWithEmailAndPassword, 
+  //loginWithEmailAndPassword, 
   registerWithEmailAndPassword          
 } from "../authentication/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -17,7 +17,7 @@ const LoginOrRegisterForm = ({ loginOrRegister }) => {
   const navigate = useNavigate();
 
   //useAuthState
-  const [user, loading, error] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth);
 
   const [credential, setCredential] = useState({
     email: "",
