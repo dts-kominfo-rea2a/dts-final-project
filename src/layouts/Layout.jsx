@@ -1,20 +1,35 @@
-import { CssBaseline } from '@material-ui/core';
-// import SearchForm from 'components/Search/SearchForm'; Container,
-// import SearchArea from 'components/Search/Search';
-import React from 'react';
+import React, { Fragment } from 'react';
+import { Outlet, useLocation } from 'react-router-dom';
+import { Layout as LayoutWrapper } from 'antd';
+import useWindowSize from 'helpers/useWindowSize';
+import LayoutProvider from 'context/LayoutProvider';
 import Header from './Header/Header';
 
+const { Content } = LayoutWrapper;
+
 const Layout = () => {
+  const { width } = useWindowSize();
+  // const singlePageUrlFromConst = SINGLE_POST_PAGE.split('/');
+  // const singlePageUrlFormLocation = location.pathname.split('/');
+
   return (
-    <>
-      <CssBaseline />
-      <Header />
-      <div
-        style={{ border: '1px solid blue', minHeight: 1400, paddingTop: 100 }}
-      >
-        {/* <SearchArea /> */}
-      </div>
-    </>
+    <LayoutProvider>
+      <Fragment>
+        <Header />
+        <Content>
+          <Outlet />
+        </Content>
+      </Fragment>
+    </LayoutProvider>
+    // <>
+    //   {/* <CssBaseline /> */}
+    //   <Header />
+    //   <div
+    //     style={{ border: '1px solid blue', minHeight: 1400, paddingTop: 100 }}
+    //   >
+    //     {/* <SearchArea /> */}
+    //   </div>
+    // </>
   );
 };
 
