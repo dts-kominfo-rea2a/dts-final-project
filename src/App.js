@@ -11,6 +11,7 @@ import { useState, useMemo } from "react";
 import DetailPosts from "./pages/Home/DetailPosts";
 import ProfileIndex from "./pages/Profile/Index";
 import ProtectedLayout from "./layouts/ProtectedLayout";
+import NotFound from "./components/404";
 
 function App() {
   const [mode, setMode] = useState("light");
@@ -30,6 +31,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Routes>
+        <Route path="*" element={<NotFound />}></Route>
         <Route element={<Layout />}>
           <Route path="/" element={<HomeIndex />} />
           <Route path="/posts/:id" element={<DetailPosts />} />

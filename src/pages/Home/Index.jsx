@@ -50,7 +50,7 @@ const HomeIndex = () => {
         <Grid container spacing={2}>
           <Grid item xs={12} >
             <Box sx={{ gap: '10px' }}>
-              <Typography variant="h6" sx={{ padding: '3em 0', marginTop: '0.5em' }} >New Articles</Typography>
+              <Typography variant="h6" sx={{ padding: '1em 0', marginTop: '0.5em' }} >New Articles</Typography>
               <div>
                 {error && <p>an error occured</p>}
                 {isLoading && <p>Loading...</p>}
