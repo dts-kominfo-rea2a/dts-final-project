@@ -1,19 +1,20 @@
+// @ts-nocheck
 import React from 'react';
 import PropTypes from 'prop-types';
-// import Heading from 'components/UI/Heading/Heading';
-// import Text from 'components/UI/Text/Text';
-// import Container from 'components/UI/Container/Container';
-// import GlideCarousel, {
-//   GlideSlide,
-// } from 'components/UI/GlideCarousel/GlideCarousel';
+import Heading from 'components/Heading/Heading';
+import Text from 'components/Text/Text';
+import Container from 'components/Container/Container';
+import GlideCarousel, {
+  GlideSlide,
+} from 'components/GlideCarousel/GlideCarousel';
 import SearchForm from './SearchForm';
 import BannerWrapper, { SearchWrapper } from './Search.style';
-import { Container } from '@material-ui/core';
+// import { Container } from '@material-ui/core';
 
 const SearchArea = ({ searchTitleStyle, searchDescriptionStyle }) => {
   return (
     <BannerWrapper>
-      {/* <GlideCarousel
+      <GlideCarousel
         controls={false}
         options={{ gap: 0, autoplay: 5000, animationDuration: 1000 }}
         bullets={true}
@@ -30,19 +31,18 @@ const SearchArea = ({ searchTitleStyle, searchDescriptionStyle }) => {
             <img src="/images/banner/3.jpg" alt="Banner 3" />
           </GlideSlide>
         </>
-      </GlideCarousel> */}
+      </GlideCarousel>
 
       <Container>
         <SearchWrapper>
-          {/* <Heading
+          <Heading
             {...searchTitleStyle}
-            content="Latest reviews. Lowest prices."
+            content="Tempat terbaik dengan harga terbaik"
           />
           <Text
             {...searchDescriptionStyle}
-            content="compares prices from 200+ booking sites to help you find the lowest
-          price on the right hotel for you."
-          /> */}
+            content="Temukan akomodasi terbaik untuk perjalanan Anda."
+          />
           <SearchForm />
         </SearchWrapper>
       </Container>

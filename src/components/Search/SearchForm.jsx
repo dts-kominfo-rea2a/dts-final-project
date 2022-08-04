@@ -10,7 +10,6 @@ import { Autocomplete } from '@material-ui/lab';
 // import { mapDataHelper } from 'components/Map/mapDataHelper';
 import ViewWithPopup from 'components/ViewWithPopup/ViewWithPopup';
 import InputIncDec from 'components/InputIncDec/InputIncDec';
-import { setStateToUrl } from 'helpers/url_handler';
 // import { LISTING_POSTS_PAGE } from 'settings/constant';
 import clsx from 'clsx';
 import { SearchLocation as search } from 'services/SearchLocation';
@@ -102,27 +101,6 @@ export default function SearchForm() {
       location_code: locationCode,
     };
     console.log(query);
-    // console.log(locationCode);
-    // let tempLocation = [];
-    // const mapData = [];
-    // //  mapValue ? mapDataHelper(mapValue) : [];
-    // mapData &&
-    //   mapData.map((singleMapData, i) => {
-    //     return tempLocation.push({
-    //       formattedAddress: singleMapData ? singleMapData.formattedAddress : '',
-    //       lat: singleMapData ? singleMapData.lat.toFixed(3) : null,
-    //       lng: singleMapData ? singleMapData.lng.toFixed(3) : null,
-    //     });
-    //   });
-    // const location = tempLocation ? tempLocation[0] : {};
-
-    const search = setStateToUrl(query);
-    console.log(search);
-    // navigate({
-    //   pathname: '',
-    //   LISTING_POSTS_PAGE,
-    //   search: `?${createSearchParams(search)}`,
-    // });
   };
 
   useEffect(() => {
@@ -130,7 +108,6 @@ export default function SearchForm() {
     process((options) => {
       setOptions(options);
     });
-    // return () => cancel();
   }, [inputValue]);
   const classes = useStyles();
 
@@ -149,7 +126,6 @@ export default function SearchForm() {
           autoHighlight
           options={options}
           onChange={(event, newValue) => {
-            // setCityCode(newValue.code);
             setLocationCode(newValue.code);
           }}
           onInputChange={(event, newInputValue) => {
@@ -259,7 +235,7 @@ export default function SearchForm() {
         onClick={goToSearchPage}
         //
       >
-        Find Hotels
+        Cari Hotel
       </Button>
     </FormWrapper>
   );
