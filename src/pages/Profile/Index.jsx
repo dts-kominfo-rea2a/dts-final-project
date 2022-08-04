@@ -26,7 +26,7 @@ const ProfileIndex = () => {
                 <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '2em' }}>
                   <Stack>
                     <Avatar
-                      alt="Remy Sharp"
+                      alt={data.username.slice(0, 2)}
                       src="/static/images/avatar/1.jpg"
                       sx={{ width: 86, height: 86 }}
                     />
@@ -41,10 +41,6 @@ const ProfileIndex = () => {
 
                   </Box>
                 </Box>
-
-                <Typography>
-                  {data.username}
-                </Typography>
               </Box>
             )
           }

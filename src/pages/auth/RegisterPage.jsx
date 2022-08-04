@@ -1,9 +1,14 @@
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { Box, Button, Card, Grid, IconButton, InputAdornment, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useRegisterMutation } from "../../services/authService";
 
 const RegisterPage = () => {
+
+  const [register, {isLoading}] = useRegisterMutation()
+	const push = useNavigate()
+
 
   useEffect(() => {
     document.title = "Create account -- blogiseng";
@@ -23,26 +28,39 @@ const RegisterPage = () => {
     });
   };
 
-  // const emailOnChangeHandler = (event) => {
-	// 	setValues({
-	// 		...values,
-	// 		username: event.target.value
-	// 	})
-	// }
+  const emailOnChangeHandler = (event) => {
+		setValues({
+			...values,
+			email: event.target.value
+		})
+	}
 
-  // const identifierOnChangeHandler = (event) => {
-	// 	setValues({
-	// 		...values,
-	// 		username: event.target.value
-	// 	})
-	// }
+  const usernameOnChangeHandler = (event) => {
+		setValues({
+			...values,
+			username: event.target.value
+		})
+	}
 
-	// const passwordOnChangeHandler = (event) => {
-	// 	setValues({
-	// 		...values,
-	// 		password: event.target.value
-	// 	})
-	// }
+	const passwordOnChangeHandler = (event) => {
+		setValues({
+			...values,
+			password: event.target.value
+		})
+	}
+
+  const doSignUp = async (e) => {
+    e.preventDefault()
+    try {
+      const response = await register(values)
+      if(response.data){
+			  localStorage.setItem('access_token', response.data.jwt)
+				push('/profile')
+		 }
+    } catch (err) {
+			console.log(err.data.message[0].messages[0].message);
+    }
+  }
 
   
 
@@ -75,6 +93,8 @@ const RegisterPage = () => {
               type="email"
               variant="outlined"
               size="small"
+              value={values.username}
+              onChange={usernameOnChangeHandler}
             />
 
             <TextField
@@ -82,6 +102,8 @@ const RegisterPage = () => {
               type="email"
               variant="outlined"
               size="small"
+              value={values.email}
+              onChange={emailOnChangeHandler}
             />
 
             <TextField
@@ -89,6 +111,8 @@ const RegisterPage = () => {
               type={values.showPassword ? 'text' : 'password'}
               variant="outlined"
               size="small"
+              value={values.password}
+              onChange={passwordOnChangeHandler}
               InputProps={{
                 endAdornment:
                   <InputAdornment position="end">
@@ -108,8 +132,9 @@ const RegisterPage = () => {
               variant="contained"
               size="medium"
               disableElevation
+              onClick={doSignUp}
             >
-              Create new account
+              {isLoading ? 'Loading ...' : 'Create new account'}
             </Button>
             <Box sx={{
               display: 'flex',

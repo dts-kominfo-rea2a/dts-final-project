@@ -18,7 +18,7 @@ const CardDetailPosts = ({ title, description, images, href, username, publishDa
       </Typography>
       <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', padding: '12px 0' }}>
         <Link to={'/profile/:id'} style={{ textDecoration: 'none', display: 'flex', flexDirection: 'row' }}>
-          <Avatar sx={{ width: 24, height: 24, marginLeft: '2px', marginRight: '12px', }} alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+          <Avatar sx={{ width: 24, height: 24, marginLeft: '2px', marginRight: '12px', }} alt={username.slice(0,2)} src="/static/images/avatar/1.jpg" />
           <Typography textTransform="none" color="gray" variant="subtitle1">{username}</Typography>
         </Link>
 

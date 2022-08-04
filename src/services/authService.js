@@ -26,6 +26,17 @@ export const authService = createApi({
         },
       }),
     }),
+    register: builder.mutation({
+      query: ({ username, email, password }) => ({
+        url: "/auth/local/register",
+        method: "POST",
+        // credentials: 'include',
+        body: { username: username, email: email, password: password },
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      }),
+    }),
     getMe: builder.query({
       query: () => ({
         url: "/users/me",
@@ -35,4 +46,4 @@ export const authService = createApi({
   }),
 });
 
-export const { useLoginMutation, useGetMeQuery  } = authService;
+export const { useLoginMutation, useGetMeQuery, useRegisterMutation  } = authService;
