@@ -1,6 +1,6 @@
-import React, { useContext } from 'react';
-import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
-import { AuthContext } from 'context/AuthProvider';
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+// import { AuthContext } from 'context/AuthProvider';  { useContext } , useLocation, Navigate
 import Layout from './layouts/Layout';
 import Loader from 'components/Loader/Loader';
 import {
@@ -12,7 +12,7 @@ import {
   // AGENT_PROFILE_CONTACT,
   // PRICING_PLAN_PAGE,
   // PRIVACY_PAGE,
-  LOGIN_PAGE,
+  // LOGIN_PAGE,
   // REGISTRATION_PAGE,
   // FORGET_PASSWORD_PAGE,
   // ADD_HOTEL_PAGE,
