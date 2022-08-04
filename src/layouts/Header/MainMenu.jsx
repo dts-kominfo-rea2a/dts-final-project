@@ -4,9 +4,9 @@ import { Menu } from 'antd';
 
 import {
   HOME_PAGE,
-  LISTING_POSTS_PAGE,
-  AGENT_PROFILE_PAGE,
-  PRICING_PLAN_PAGE,
+  // LISTING_POSTS_PAGE,
+  // AGENT_PROFILE_PAGE,
+  // PRICING_PLAN_PAGE,
 } from 'common/constant';
 
 const MainMenu = ({ className }) => {
@@ -15,7 +15,7 @@ const MainMenu = ({ className }) => {
       <Menu.Item key="0">
         <NavLink to={HOME_PAGE}>Hotels</NavLink>
       </Menu.Item>
-      <Menu.Item key="1">
+      {/* <Menu.Item key="1">
         <NavLink to={LISTING_POSTS_PAGE}>Listing</NavLink>
       </Menu.Item>
       <Menu.Item key="2">
@@ -23,7 +23,7 @@ const MainMenu = ({ className }) => {
       </Menu.Item>
       <Menu.Item key="3">
         <NavLink to={PRICING_PLAN_PAGE}>Pricing</NavLink>
-      </Menu.Item>
+      </Menu.Item> */}
     </Menu>
   );
 };

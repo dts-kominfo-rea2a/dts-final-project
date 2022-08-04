@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-// import { useNavigate, createSearchParams } from 'react-router-dom';
 // import isEmpty from 'lodash/isEmpty';
 import { FaRegCalendar, FaUserFriends } from 'react-icons/fa';
 import { Button } from 'antd';
@@ -101,7 +100,7 @@ export default function SearchForm() {
       guest: roomGuest.guest,
       location_code: locationCode,
     };
-    console.log(query);
+
     const search = setStateToUrl(query);
     navigate({
       pathname: LISTING_POSTS_PAGE,

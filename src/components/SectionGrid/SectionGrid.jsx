@@ -47,7 +47,7 @@ export default function SectionGrid({
   const n = limit ? Number(limit) : 1;
   const limits = Array(n).fill(0);
 
-  let showButton = false; //data.length < totalItem;
+  let showButton = true; //false; //data.length < totalItem;
 
   return (
     <>

@@ -1,5 +1,6 @@
 import SearchArea from 'components/Search/Search';
-// import { LuxaryHotelsGrid, TopHotelsGrid } from 'containers/Grid';
+import { LuxaryHotelsGrid, TopHotelsGrid } from 'containers/Grid';
+//,
 import LocationGrid from 'containers/Location/Location';
 import { LayoutContext } from 'context/LayoutProvider';
 import React, { useContext } from 'react';
@@ -16,8 +17,8 @@ const Home = () => {
         onLeave={() => dispatch({ type: 'SHOW_TOP_SEARCHBAR' })}
       />
       <LocationGrid />
-      {/* <TopHotelsGrid /> */}
-      {/* <LuxaryHotelsGrid /> */}
+      <TopHotelsGrid />
+      <LuxaryHotelsGrid />
     </>
   );
 };

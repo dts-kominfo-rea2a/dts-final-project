@@ -5,6 +5,7 @@ async function SuperFetch(
   method = 'GET',
   headers = {
     'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
+    'X-RapidAPI-Key': process.env.REACT_APP_RAPID_API_KEY,
   },
   body = {}
 ) {
@@ -47,7 +48,7 @@ function dataFetchReducer(state, action) {
         error: true,
       };
     case 'LOAD_MORE':
-      // console.log(state.data);
+      console.log(state);
       return {
         ...state,
         data: [
@@ -65,8 +66,8 @@ function dataFetchReducer(state, action) {
   }
 }
 
-const useHotelApi = (initialUrl, limit = 10, initialData = []) => {
-  const [url, setUrl] = useState(initialUrl);
+const useHotelApi = (initialUrl, page = 0, limit = 20, initialData = []) => {
+  const [url, setUrl] = useState(initialUrl + page);
 
   const [state, dispatch] = useReducer(dataFetchReducer, {
     loading: false,
@@ -103,7 +104,10 @@ const useHotelApi = (initialUrl, limit = 10, initialData = []) => {
       didCancel = true;
     };
   }, [url]);
-  const loadMoreData = () => {
+
+  const LoadMoreData = () => {
+    // useHotelApi(url);
+    // console.log(url);
     // @ts-ignore
     dispatch({ type: 'LOAD_MORE' });
   };
@@ -111,7 +115,44 @@ const useHotelApi = (initialUrl, limit = 10, initialData = []) => {
     setUrl(url);
   };
 
-  return { ...state, doFetch, loadMoreData };
+  return { ...state, doFetch, LoadMoreData };
 };
+
+// const LoadMoreData = () => {
+//   const [state, dispatch] = useReducer(dataFetchReducer, {
+//     loading: false,
+//     error: false,
+//     data: initialData,
+//     total: initialData,
+//     limit: limit,
+//   });
+//   useEffect(() => {
+//     let didCancel = false;
+
+//     const fetchData = async () => {
+//       // @ts-ignore
+//       dispatch({ type: 'FETCH_INIT' });
+
+//       try {
+//         const result = await SuperFetch(url);
+//         if (!didCancel) {
+//           // @ts-ignore
+//           dispatch({ type: 'FETCH_SUCCESS', payload: result });
+//         }
+//       } catch (error) {
+//         if (!didCancel) {
+//           // @ts-ignore
+//           dispatch({ type: 'FETCH_FAILURE' });
+//         }
+//       }
+//     };
+
+//     fetchData();
+
+//     return () => {
+//       didCancel = true;
+//     };
+//   }, [url]);
+// };
 
 export default useHotelApi;
