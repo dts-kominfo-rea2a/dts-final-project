@@ -3,7 +3,7 @@ import axios from 'axios';
 const { CancelToken } = axios;
 
 const api_token = process.env.REACT_APP_RAPID_API_KEY;
-const api_host = 'https://booking-com.p.rapidapi.com/v1';
+const api_host = process.env.REACT_APP_RAPID_API_HOST;
 const api_endpoint = '/hotels/locations?locale=id&name=';
 
 export const SearchLocation = (input) => {
