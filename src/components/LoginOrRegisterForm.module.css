@@ -1,0 +1,7 @@
+.boxy {
+  border: 1px dashed grey;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
