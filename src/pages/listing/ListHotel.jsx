@@ -1,6 +1,6 @@
 import SectionGrid from 'components/SectionGrid/SectionGrid';
 import React, { Fragment } from 'react';
-import useWindowSize from 'helpers/useWindowSize';
+// import useWindowSize from 'helpers/useWindowSize';
 import ListingWrapper, { PostsWrapper } from './Listing.style'; //ShowMapCheckbox
 import { PostPlaceholder } from 'components/ContentLoader/ContentLoader';
 import useHotelApi from 'helpers/useHotelApi';
