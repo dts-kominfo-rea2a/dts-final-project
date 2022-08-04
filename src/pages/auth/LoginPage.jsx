@@ -1,20 +1,28 @@
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { Box, Button, Card, Checkbox, Divider, FormControlLabel, Grid, IconButton, InputAdornment, TextField, Typography } from "@mui/material";
+import { Box, Button, Card, Divider, Grid, IconButton, InputAdornment, TextField, Typography } from "@mui/material";
 import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { setCredentials } from "../../redux/features/auth/authSlice";
+import { useLoginMutation } from "../../services/authService";
+import { useNavigate } from 'react-router-dom'
 
 const LoginPage = () => {
+
+	const [login, {isLoading}] = useLoginMutation()
+	const dispatch = useDispatch()
+	const push = useNavigate()
 
 	useEffect(() => {
 		document.title = 'Sign in -- blogiseng'
 	})
 
 	const [values, setValues] = React.useState({
-		email: '',
+		identifier: '',
 		password: '',
 		showPassword: false,
 	});
-
+	
 	const handleClickShowPassword = () => {
 		setValues({
 			...values,
@@ -22,21 +30,37 @@ const LoginPage = () => {
 		});
 	};
 
-	return (
-		// <Container>
-		// 	<Box sx={{
-		// 		margin: '0 auto',
-		// 		width: "100%",
-		// 		display: 'fles'
-		// 	}}>
-		// 		<Card>
-		// 			<Typography variant="h4">Sign In</Typography>
-		// 			<Form>
+	const identifierOnChangeHandler = (event) => {
+		setValues({
+			...values,
+			identifier: event.target.value
+		})
+	}
 
-		// 			</Form>
-		// 		</Card>
-		// 	</Box>
-		// </Container>
+	const passwordOnChangeHandler = (event) => {
+		setValues({
+			...values,
+			password: event.target.value
+		})
+	}
+
+	const doSignIn = async (e) => {
+		e.preventDefault()
+		try {
+		 const response =	await login(values)
+		 if(response.data){
+				dispatch(setCredentials(response.data))
+			  localStorage.setItem('access_token', response.data.jwt)
+				push('/profile')
+		 }
+		} catch (err) {
+			console.log(err.data.message[0].messages[0].message);
+		}
+
+		
+	}
+
+	return (
 
 		<Grid
 			container
@@ -64,7 +88,7 @@ const LoginPage = () => {
 					width: '24rem'
 				}} component="form" noValidate>
 
-					<Button variant="outlined" color="info" size="medium">Sign In with Google</Button>
+					<Button variant="outlined" disabled color="info" size="medium">Sign In with Google</Button>
 					<Divider><Typography variant="body2" color="gray">or Sign in with email</Typography> </Divider>
 
 					<TextField
@@ -72,6 +96,8 @@ const LoginPage = () => {
 						type="email"
 						variant="outlined"
 						size="small"
+						value={values.identifier}
+						onChange={identifierOnChangeHandler}
 					/>
 
 					<TextField
@@ -79,6 +105,8 @@ const LoginPage = () => {
 						type={ values.showPassword ? "text" : "password"}
 						variant="outlined"
 						size="small"
+						value={values.password}
+						onChange={passwordOnChangeHandler}
 						InputProps={{
 							endAdornment:
 								<InputAdornment position="end">
@@ -98,12 +126,12 @@ const LoginPage = () => {
 						flexDirection: 'row',
 						alignItems: 'center'
 					}}>
-						<FormControlLabel
+						{/* <FormControlLabel
 							value="end"
 							control={<Checkbox />}
 							label="Remember me"
 							labelPlacement="end"
-						/>
+						/> */}
 
 						<Link to="/forget-password">
 							<Typography variant="body1">Forget password?</Typography>
@@ -115,23 +143,14 @@ const LoginPage = () => {
 						variant="contained"
 						size="medium"
 						disableElevation
+						onClick={doSignIn}
 					>
-						Sign In
+						{isLoading ? 'Loading ...' : 'Sign In'}
+						
 					</Button>
 
 
 					<Typography variant="body1">Not registered yet ? <Link to="/auth/signup">Create an account</Link> </Typography>
-
-
-					{/* {loginOrRegister === "login" ? (
-					<Link to="/register">
-						<Typography variant="body1">or do you want Register ?</Typography>
-					</Link>
-				) : (
-					<Link to="/login">
-						<Typography variant="body1">or do you want Login ?</Typography>
-					</Link>
-				)} */}
 
 				</Box>
 			</Card>

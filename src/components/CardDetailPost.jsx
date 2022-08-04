@@ -2,6 +2,15 @@ import { Avatar, Box, Card, CardMedia, Typography } from "@mui/material"
 import { Link } from "react-router-dom";
 
 const CardDetailPosts = ({ title, description, images, href, username, publishDate }) => {
+  const formatDate = (value) => {
+    const full = new Date(value)
+    const date = full.getDate()
+    const month = full.getMonth()
+    const year = full.getFullYear()
+
+    return date + '/' + month + '/' + year
+  }
+
   return (
     <Card sx={{ padding: '2em 1em', margin: '0 auto', whiteSpace: 'pre-wrap', gap: '2em' }}>
       <Typography component="div" variant="h3" fontWeight={'medium'}>
@@ -14,7 +23,7 @@ const CardDetailPosts = ({ title, description, images, href, username, publishDa
         </Link>
 
       </Box>
-      <Typography color='gray' variant="caption">Published date {publishDate}</Typography>
+      <Typography color='gray' variant="caption">Published date {formatDate(publishDate)}</Typography>
       <CardMedia
         component="img"
         sx={{ width: '60%', height: '50%' }}

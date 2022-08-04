@@ -6,30 +6,26 @@ import Toolbar from '@mui/material/Toolbar'
 import Divider from '@mui/material/Divider';
 import AppBar from '@mui/material/AppBar';
 // import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Typography } from '@mui/material';
 import SwitchThemeComponent from './SwitchThemeComponent';
-import { useGetMeQuery } from '../services/authService';
 
+
+// const LogoApp = () => {
+// 	return <p style={{ fontSize: '1.5em', textAlign: 'left' }}>blogiseng</p>
+// }
+
+// const IconMenu = () => {
+// 	return <p>Menu</p>
+// }
 
 const navItems = [
 	{ text: 'Home', href: '/' },
+	{ text: 'Profile', href: '/profile' },
 ];
 
 
-const Navbar = (props) => {
-	const { data, } = useGetMeQuery()
-	const navigate = useNavigate();
-
-	//isn't best practice
-	const token = localStorage.getItem('access_token')
-
-	const logout = () => {
-		localStorage.clear()
-		setTimeout(() => {
-			navigate('/auth/signin')
-		})
-	}
+const NavbarPrivate = () => {
 
 	return (
 		<>
@@ -47,18 +43,9 @@ const Navbar = (props) => {
 									</Button>
 								</Link>
 							))}
-							{
-								token && (
-									data && (
-										<>
-											<Link to={'/profile'} style={{ textDecoration: 'none' }}>
-												<Typography sx={{ textTransform: 'capitalize', color: 'text.primary' }} color={'inherit'} disableElevation>{data.username}</Typography>
-											</Link>
-											<Button onClick={() => logout()} sx={{ textTransform: 'capitalize', color: 'text.primary' }} color={'inherit'} disableElevation>signout</Button>
-										</>
-									)
-								)
-							}
+							{/* <Link to={'/auth/signin'} style={{ textDecoration: 'none' }}>
+								<Button sx={{ textTransform: 'capitalize' }} variant='contained' disableElevation>Sign in</Button>
+							</Link> */}
 							<SwitchThemeComponent />
 						</Box>
 					</Toolbar>
@@ -68,4 +55,4 @@ const Navbar = (props) => {
 	)
 }
 
-export default Navbar;
+export default NavbarPrivate;

@@ -4,14 +4,22 @@ import { configureStore } from "@reduxjs/toolkit";
 import themes from "./themes/themeSlice"
 import postReducer from "./features/posts/postsSlice"
 import { postsService } from "../services/postsService";
+import { authService } from "../services/authService";
+import { setupListeners } from "@reduxjs/toolkit/dist/query";
 
-export default configureStore({
+export const store = configureStore({
   reducer: {
     themes,
     posts: postReducer,
     [postsService.reducerPath]: postsService.reducer,
+    [authService.reducerPath]: authService.reducer
   },
+
+  middleware: (getDefaultMiddleware) => 
+    getDefaultMiddleware().concat(authService.middleware)
 })
+
+setupListeners(store.dispatch)
 
 /** === OLD === */
 // import { applyMiddleware, legacy_createStore as createStore } from "redux";

@@ -1,5 +1,4 @@
 import CssBaseline from "@mui/material/CssBaseline";
-// import SnackbarComponent from "./components/SnackbarComponent";
 import { Routes, Route } from "react-router-dom";
 import { Layout } from "./layouts/Layout";
 import LoginPage from "./pages/auth/LoginPage";
@@ -10,6 +9,8 @@ import { useSelector } from "react-redux";
 import getDesignTokens from "./themes";
 import { useState, useMemo } from "react";
 import DetailPosts from "./pages/Home/DetailPosts";
+import ProfileIndex from "./pages/Profile/Index";
+import ProtectedLayout from "./layouts/ProtectedLayout";
 
 function App() {
   const [mode, setMode] = useState("light");
@@ -23,20 +24,21 @@ function App() {
     }
   }, [darkMode]);
 
-
   const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
 
-  
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      {/* <SnackbarComponent /> */}
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<HomeIndex />} />
           <Route path="/posts/:id" element={<DetailPosts />} />
           <Route path="/auth/signin" element={<LoginPage />} />
           <Route path="/auth/signup" element={<RegisterPage />} />
+        </Route>
+
+        <Route element={<ProtectedLayout />}>
+          <Route path="/profile" element={<ProfileIndex />} />
         </Route>
       </Routes>
     </ThemeProvider>

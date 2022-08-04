@@ -10,7 +10,7 @@ const RegisterPage = () => {
   });
 
   const [values, setValues] = useState({
-    name: '',
+    username: '',
     password: '',
     email: '',
     showPassword: false,
@@ -22,6 +22,29 @@ const RegisterPage = () => {
       showPassword: !values.showPassword,
     });
   };
+
+  // const emailOnChangeHandler = (event) => {
+	// 	setValues({
+	// 		...values,
+	// 		username: event.target.value
+	// 	})
+	// }
+
+  // const identifierOnChangeHandler = (event) => {
+	// 	setValues({
+	// 		...values,
+	// 		username: event.target.value
+	// 	})
+	// }
+
+	// const passwordOnChangeHandler = (event) => {
+	// 	setValues({
+	// 		...values,
+	// 		password: event.target.value
+	// 	})
+	// }
+
+  
 
   return (
     <>
