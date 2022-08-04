@@ -8,23 +8,22 @@ import LoginPage from "./containers/LoginPage";
 import RegisterPage from "./containers/RegisterPage";
 import StandingPage from "./containers/StandingPage";
 
+
 function App() {
+  
   return (
     <>
-    <BrowserRouter>
-    <NavBar/>
-    <Routes>
-      <Route path="/" element={<HomePage />}></Route>
-      <Route path="/detail/:id" element={<StandingPage/>}>
-      </Route>
-      {/* <Route path="/detail/:id" element={<StandingPage/>}></Route> */}
-      <Route path="login" element={<LoginPage />} />
-      <Route path="register" element={<RegisterPage />} />
-    </Routes>
-    <Footer/>
-  </BrowserRouter>
-  </>
+      <BrowserRouter>
+        <NavBar/>
+        <Routes>
+          <Route path="login" element={<LoginPage />} />
+          <Route path="register" element={<RegisterPage />} />
+          <Route path="/" element={<HomePage />}></Route>
+          <Route path="/detail/:id" element={<StandingPage />}></Route>
+        </Routes>
+        <Footer />
+      </BrowserRouter>
+    </>
   );
 }
-
 export default App;

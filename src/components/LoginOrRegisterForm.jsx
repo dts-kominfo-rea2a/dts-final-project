@@ -1,20 +1,16 @@
-import React, { useEffect, useState } from "react";
-//import gambar from "../asset/ProfilePictureimage.png";
-
-
+import {React,useEffect, useState} from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel"
-import Paper from "@mui/material/Paper";
-import Box from "@mui/material/Box";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
 import Grid from "@mui/material/Grid";
-import Checkbox from "@mui/material/Checkbox"
+import Box from "@mui/material/Box";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-
 import { Link } from "react-router-dom";
 
 import { useNavigate } from "react-router-dom";
@@ -29,8 +25,16 @@ import { useAuthState } from "react-firebase-hooks/auth";
 
 const LoginOrRegisterForm = ({ loginOrRegister }) => {
   const navigate = useNavigate();
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    console.log({
+      email: data.get("email"),
+      password: data.get("password"),
+    });
+  };
 
-  const [user, isLoading, error] = useAuthState(auth);
+  const [user, isLoading,] = useAuthState(auth);
 
   const [credential, setCredential] = useState({
     email: "",
@@ -58,7 +62,6 @@ const LoginOrRegisterForm = ({ loginOrRegister }) => {
   const registerHandler = () => {
     registerDenganEmailDanPassword(credential.email, credential.password);
   };
-
   const buttonLoginOrRegisterOnClickHandler = () => {
     if (loginOrRegister === "login") {
       loginHandler();
@@ -75,124 +78,97 @@ const LoginOrRegisterForm = ({ loginOrRegister }) => {
       navigate("/");
     }
   }, [user, isLoading, navigate]);
-
-  // const darkTheme = createTheme({
-  //   palette: {
-  //     mode: "dark",
-  //   },
-  // });
-
+  const theme = createTheme();
   return (
-    // <ThemeProvider theme={darkTheme}>
-    //   <CssBaseline />
-      <Grid container component="main" sx={{ height: "100vh" }}>
-        <Grid
-          item
-          xs={false}
-          sm={4}
-          md={6}
+    <ThemeProvider theme={theme}>
+      <Container component="main" maxWidth="xs" 
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        minHeight: "86vh",
+      }}>
+        <CssBaseline />
+        <Box
           sx={{
-            backgroundImage: 'url(https://coffee.alexflipnote.dev/random)',
-            backgroundRepeat: "no-repeat",
-            backgroundColor: (t) =>
-              t.palette.mode === "light"
-                ? t.palette.grey[50]
-                : t.palette.grey[900],
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            
+            marginTop: 20,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
           }}
-        />
-        <Grid item xs={12} sm={8} md={6} component={Paper} elevation={6} square
-        //   style={{
-        //     background: 'linear-gradient(90deg, rgb(211 8 18) 0%, rgb(0, 0, 0) 50%, rgb(0, 0, 0) 100%), url(undefined) 0% 0% / contain no-repeat'
-        // }}
+          
         >
-          <Box
-            sx={{
-              my: 12,
-              mx: 12,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
             <LockOutlinedIcon />
-            </Avatar>
-            <Typography variant="body1" fontFamily="inter">
-              {loginOrRegister === "login" ? "Login Page" : "Register Page"}
-            </Typography>
-            <Box
-              component="form"
-              noValidate
-              // onSubmit={handleSubmit}
-              sx={{ mt: 1 }}
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign in
+          </Typography>
+          <Box
+            component="form"
+            onSubmit={handleSubmit}
+            noValidate
+            sx={{ mt: 1 }}
+          >
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              autoComplete="email"
+              autoFocus
+              value={credential.email}
+              onChange={textFieldEmailOnChangeHandler}
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+              value={credential.password}
+              onChange={textFieldPasswordOnChangeHandler}
+            />
+            <FormControlLabel
+              control={<Checkbox value="remember" color="primary" />}
+              label="Remember me"
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+              onClick={buttonLoginOrRegisterOnClickHandler}
             >
-              <TextField
-                fontFamily="inter"
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                value={credential.email}
-                onChange={textFieldEmailOnChangeHandler}
-                autoFocus
-              />
-              <TextField
-                fontFamily="inter"
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-                value={credential.password}
-                onChange={textFieldPasswordOnChangeHandler}
-              />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              />
-              <Button
-                variant="contained"
-                size="large"
-                fullWidth
-                sx={{ mt: 3, mb: 2 }}
-                onClick={buttonLoginOrRegisterOnClickHandler}
-              >
-                {loginOrRegister === "login" ? "Login" : "Register Account"}
-              </Button>
-              <Grid container>
-                <Grid item xs>
-                  {loginOrRegister === "login" ? (
-                    <Link to="/register">
-                      <Typography variant="body1">Sign Up ?</Typography>
-                    </Link>
-                  ) : (
-                    <Link to="/login">
-                      <Typography variant="body1">Sign In ?</Typography>
-                    </Link>
-                  )}
-                </Grid>
-                <Grid item>
-                  {/* <Link href="#" variant="body2">
-                    {"Don't have an account? Sign Up"}
-                  </Link> */}
-                </Grid>
+              {loginOrRegister === "login" ? "Login" : "Register Account"}
+            </Button>
+            <Grid container>
+              <Grid item xs>
+                {/* <Link href="#" variant="body2">
+                  Forgot password?
+                </Link> */}
               </Grid>
-              {/* <Copyright sx={{ mt: 5 }} /> */}
-            </Box>
+              <Grid item>
+                {loginOrRegister === "login" ? (
+                  <Link to="/register" variant="body2">
+                    Sign Up
+                  </Link>
+                ) : (
+                  <Link to="/login">
+                    <Typography variant="body1">Sign In ?</Typography>
+                  </Link>
+                )}
+              </Grid>
+            </Grid>
           </Box>
-        </Grid>
-      </Grid>
-    // </ThemeProvider>
+        </Box>
+        {/* <Copyright sx={{ mt: 8, mb: 4 }} /> */}
+      </Container>
+    </ThemeProvider>
   );
 };
-
 export default LoginOrRegisterForm;

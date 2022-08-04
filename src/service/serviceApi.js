@@ -24,8 +24,8 @@ export const serviceApi = createApi({
       }),
     }),
     getLeaguesStandings: builder.query({
-      query: (id) => ({
-        url: `/${id}/standings`,
+      query: ({id, year}) => ({
+        url: `/${id}/standings?season=${year}`,
       }),
     }),
   }),

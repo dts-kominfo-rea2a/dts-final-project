@@ -6,6 +6,7 @@ const ErrorComponent = ({ message }) => {
     <Box
       sx={{
         display: "flex",
+        justifyContent:"center"
       }}
     >
       <Alert severity="error">{message}</Alert>
