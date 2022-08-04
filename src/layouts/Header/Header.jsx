@@ -30,7 +30,7 @@ function Header(props) {
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
-  }, []);
+  });
 
   const classes = useStyles();
   const theme = useTheme();
