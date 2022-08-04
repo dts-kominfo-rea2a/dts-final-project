@@ -21,15 +21,6 @@ const Layout = () => {
         </Content>
       </Fragment>
     </LayoutProvider>
-    // <>
-    //   {/* <CssBaseline /> */}
-    //   <Header />
-    //   <div
-    //     style={{ border: '1px solid blue', minHeight: 1400, paddingTop: 100 }}
-    //   >
-    //     {/* <SearchArea /> */}
-    //   </div>
-    // </>
   );
 };
 
