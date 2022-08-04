@@ -9,7 +9,7 @@ import { SINGLE_POST_PAGE } from 'common/constant';
 let columnWidth = [1 / 1, 1 / 2, 1 / 3, 1 / 4, 1 / 5];
 
 const ListHotel = () => {
-  const { width } = useWindowSize();
+  // const { width } = useWindowSize();
   let url = '/data/hotels.json';
   const { data, loading, loadMoreData, total, limit } = useHotelApi(url);
   console.log(data);
