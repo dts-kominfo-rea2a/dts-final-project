@@ -11,6 +11,7 @@ import ProtectedComponent from "./components/ProtectedComponent";
 import ProtectedAuthComponent from "./components/ProtectedAuthComponent";
 import { store } from "./app/store";
 import { Provider } from "react-redux";
+import RecipeDetail from "./layouts/RecipeDetail";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -24,6 +25,14 @@ root.render(
               <ProtectedComponent>
                 <Home />
               </ProtectedComponent>
+            }
+          ></Route>
+          <Route
+            path="recipe/:id"
+            element={
+              // <ProtectedComponent>
+              <RecipeDetail />
+              // </ProtectedComponent>
             }
           ></Route>
           <Route

@@ -7,7 +7,7 @@ export const store = configureStore({
     [recipeAPI.reducerPath]: recipeAPI.reducer,
   },
 
-  // middleware: (getDefaultMiddleware) => {
-  //   return getDefaultMiddleware().concat(movieAPI.middleware);
-  // },
+  middleware: (getDefaultMiddleware) => {
+    return getDefaultMiddleware().concat(recipeAPI.middleware);
+  },
 });

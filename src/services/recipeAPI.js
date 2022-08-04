@@ -13,13 +13,10 @@ export const recipeAPI = createApi({
       query: () => `/api/recipes`,
     }),
 
-    // trendingAll: builder.query({
-    //   query: () => `/trending/all/day?api_key=${apiKey}`,
-    // }),
-    // movieById: builder.query({
-    //   query: (id) => ``,
-    // }),
+    recipeById: builder.query({
+      query: (id) => `/api/recipe/${id}`,
+    }),
   }),
 });
 
-export const { useRecipeQuery } = recipeAPI;
+export const { useRecipeQuery, useRecipeByIdQuery } = recipeAPI;

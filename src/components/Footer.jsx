@@ -8,13 +8,13 @@ export default function Footer() {
       sx={{
         width: "100%",
         backgroundColor: "primary.dark",
+        textAlign: "center",
+        color: "white",
+        height: "48px",
       }}
     >
       <Typography variant="body1">
-        body1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos
-        blanditiis tenetur unde suscipit, quam beatae rerum inventore
-        consectetur, neque doloribus, cupiditate numquam dignissimos laborum
-        fugiat deleniti? Eum quasi quidem quibusdam.
+        (152235865100-795) Ida Bagus Made Lingga Pradirta
       </Typography>
     </Box>
   );

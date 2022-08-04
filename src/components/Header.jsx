@@ -1,8 +1,7 @@
 import React from "react";
 import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
+import { Box, Link } from "@mui/material";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 // import CssBaseline from '@mui/material/CssBaseline';
 // import useScrollTrigger from '@mui/material/useScrollTrigger';
 // import Container from '@mui/material/Container';
@@ -33,9 +32,14 @@ export default function Header() {
           >
             <MenuIcon />
           </IconButton> */}
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Link
+            href="/"
+            color="inherit"
+            variant="h6"
+            sx={{ flexGrow: 1, textDecoration: "none" }}
+          >
             Recipe
-          </Typography>
+          </Link>
           <Button color="inherit" onClick={buttonLogoutOnClickHandler}>
             Logout
           </Button>
