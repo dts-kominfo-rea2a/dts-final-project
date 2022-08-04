@@ -26,6 +26,7 @@
     "clsx": "^1.2.1",
     "css-loader": "^6.7.1",
     "date-fns": "^2.29.1",
+    "dotenv": "^16.0.1",
     "eslint-visitor-keys": "^3.3.0",
     "https-browserify": "^1.0.0",
     "materialui-daterange-picker": "^1.1.92",

@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const { CancelToken } = axios;
 
-const api_token = 'e941318f9fmsh98f1e37732610e4p13fc36jsndbba69375b04';
+const api_token = process.env.REACT_APP_RAPID_API_KEY;
 const api_host = 'https://booking-com.p.rapidapi.com/v1';
 const api_endpoint = '/hotels/locations?locale=id&name=';
 

@@ -5,6 +5,7 @@ import Layout from './layouts/Layout';
 import Loader from 'components/Loader/Loader';
 import {
   HOME_PAGE,
+  LISTING_POSTS_PAGE,
   // LISTING_POSTS_PAGE,
   // SINGLE_POST_PAGE,
   // AGENT_PROFILE_PAGE,
@@ -20,6 +21,7 @@ import {
   // AGENT_PASSWORD_CHANGE_PAGE,
   // AGENT_ACCOUNT_SETTINGS_PAGE,
 } from './common/constant';
+import ListHotel from 'pages/listing/ListHotel';
 
 // protected route
 // function RequireAuth({ children }) {
@@ -89,14 +91,15 @@ export default function AppRoutes() {
             </React.Suspense>
           }
         />
-        {/* <Route
+        <Route
           path={LISTING_POSTS_PAGE}
           element={
             <React.Suspense fallback={<Loader />}>
-              <ListingPage />
+              <ListHotel />
             </React.Suspense>
           }
         />
+        {/*
         <Route
           path={`${SINGLE_POST_PAGE}/:slug`}
           element={
