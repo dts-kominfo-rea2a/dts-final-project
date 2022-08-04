@@ -34,7 +34,7 @@ function Header(props) {
 
   const classes = useStyles();
   const theme = useTheme();
-  const { onToggleDark, onToggleDir } = props;
+  // const { onToggleDark, onToggleDir } = props;
   const isDesktop = useMediaQuery(theme.breakpoints.up('lg'));
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [openDrawer, setOpenDrawer] = useState(false);
