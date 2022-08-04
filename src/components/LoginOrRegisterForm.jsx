@@ -1,13 +1,23 @@
 // Membutuhkan state untuk meng-track value dari TextField
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./LoginOrRegisterForm.module.css";
 
 import { Grid, Box, Button, TextField, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
+import {
+  auth, 
+  loginUsrWithEmailAndPassword, 
+  loginWithEmailAndPassword, 
+  registerWithEmailAndPassword          
+} from "../authentication/firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 
 const LoginOrRegisterForm = ({ loginOrRegister }) => {
   const navigate = useNavigate();
+
+  //useAuthState
+  const [user, loading, error] = useAuthState(auth);
 
   const [credential, setCredential] = useState({
     email: "",
@@ -29,13 +39,17 @@ const LoginOrRegisterForm = ({ loginOrRegister }) => {
   };
 
   const loginHandler = () => {
-    console.log("Login");
-    navigate("/");
+    // console.log("Login");
+    // navigate("/");
+
+    loginUsrWithEmailAndPassword(credential.email, credential.password);
   };
 
   const registerHandler = () => {
-    console.log("Register");
-    navigate("/login");
+    // console.log("Register");
+    // navigate("/login");
+
+    registerWithEmailAndPassword(credential.email, credential.password)
   };
 
   const buttonLoginOrRegisterOnClickHandler = () => {
@@ -45,6 +59,22 @@ const LoginOrRegisterForm = ({ loginOrRegister }) => {
       registerHandler();
     }
   };
+
+  // useEffect untuk track login tidaknya user
+  useEffect(
+    () => {
+      if (loading){
+        //tampilan screen loading ...
+        return;
+      }
+
+      if (user){
+        navigate("/");
+      }
+    },
+    //dependency
+    [loading, user, navigate]
+  )
 
   return (
     <Grid
