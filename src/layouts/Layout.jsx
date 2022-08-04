@@ -1,5 +1,5 @@
-import { Container, CssBaseline } from '@material-ui/core';
-// import SearchForm from 'components/Search/SearchForm';
+import { CssBaseline } from '@material-ui/core';
+// import SearchForm from 'components/Search/SearchForm'; Container,
 // import SearchArea from 'components/Search/Search';
 import React from 'react';
 import Header from './Header/Header';

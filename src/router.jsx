@@ -22,16 +22,16 @@ import {
 } from './common/constant';
 
 // protected route
-function RequireAuth({ children }) {
-  // @ts-ignore
-  let { loggedIn } = useContext(AuthContext);
-  let location = useLocation();
-  if (!loggedIn) {
-    return <Navigate to={LOGIN_PAGE} state={{ from: location }} />;
-  }
+// function RequireAuth({ children }) {
+//   // @ts-ignore
+//   let { loggedIn } = useContext(AuthContext);
+//   let location = useLocation();
+//   if (!loggedIn) {
+//     return <Navigate to={LOGIN_PAGE} state={{ from: location }} />;
+//   }
 
-  return children;
-}
+//   return children;
+// }
 
 // public routes
 const HomePage = React.lazy(() => import('./pages/Home/Home'));
