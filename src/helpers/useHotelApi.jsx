@@ -47,6 +47,7 @@ function dataFetchReducer(state, action) {
         error: true,
       };
     case 'LOAD_MORE':
+      // console.log(state.data);
       return {
         ...state,
         data: [
@@ -64,7 +65,7 @@ function dataFetchReducer(state, action) {
   }
 }
 
-const useHotelApi = (initialUrl, limit = 20, initialData = []) => {
+const useHotelApi = (initialUrl, limit = 10, initialData = []) => {
   const [url, setUrl] = useState(initialUrl);
 
   const [state, dispatch] = useReducer(dataFetchReducer, {

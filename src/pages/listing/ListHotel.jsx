@@ -12,7 +12,7 @@ const ListHotel = () => {
   // const { width } = useWindowSize();
   let url = '/data/hotels.json';
   const { data, loading, loadMoreData, total, limit } = useHotelApi(url);
-  console.log(data);
+  console.log(total);
   return (
     <>
       <ListingWrapper>
@@ -26,7 +26,7 @@ const ListHotel = () => {
               link={SINGLE_POST_PAGE}
               columnWidth={columnWidth}
               data={data}
-              totalItem={total.length}
+              totalItem={total}
               loading={loading}
               limit={limit}
               handleLoadMore={loadMoreData}

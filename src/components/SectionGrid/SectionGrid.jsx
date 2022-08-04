@@ -4,6 +4,7 @@ import { Button } from 'antd';
 import Box from 'components/Box/Box';
 import Text from 'components/Text/Text';
 import ProductCard from '../ProductCard/ProductCard';
+
 const LoadMore = ({
   handleLoadMore,
   showButton,
@@ -46,7 +47,7 @@ export default function SectionGrid({
   const n = limit ? Number(limit) : 1;
   const limits = Array(n).fill(0);
 
-  let showButton = data.length < totalItem;
+  let showButton = false; //data.length < totalItem;
 
   return (
     <>
