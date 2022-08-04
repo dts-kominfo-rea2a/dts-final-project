@@ -4,6 +4,7 @@ import { Layout as LayoutWrapper } from 'antd';
 // import useWindowSize from 'helpers/useWindowSize';
 import LayoutProvider from 'context/LayoutProvider';
 import Header from './Header/Header';
+import Footer from './Footer/Footer';
 
 const { Content } = LayoutWrapper;
 
@@ -19,6 +20,9 @@ const Layout = () => {
         <Content>
           <Outlet />
         </Content>
+        <Fragment>
+          <Footer />
+        </Fragment>
       </Fragment>
     </LayoutProvider>
   );
