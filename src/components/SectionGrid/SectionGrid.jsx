@@ -53,6 +53,7 @@ export default function SectionGrid({
       <Box className="grid_wrapper" {...rowStyle}>
         {data && data.length
           ? data.map((item) => {
+              // console.log(item);
               return (
                 <Box
                   className="grid_column"

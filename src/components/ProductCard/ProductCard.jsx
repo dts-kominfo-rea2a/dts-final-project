@@ -35,12 +35,12 @@ const responsive = {
 };
 
 const PostGrid = ({
-  title,
-  rating,
-  location,
-  price,
-  ratingCount,
-  gallery,
+  hotel_name_trans,
+  review_score,
+  address_trans,
+  min_total_price,
+  review_nr,
+  max_photo_url,
   slug,
   link,
 }) => {
@@ -54,11 +54,13 @@ const PostGrid = ({
           }}
         />
       }
-      location={location.formattedAddress}
+      location={address_trans}
       // @ts-ignore
-      title={<TextLink link={`${link}/${slug}`} content={title} />}
-      price={`$${price}/Night - Free Cancellation`} //
-      rating={<Rating rating={rating} ratingCount={ratingCount} type="bulk" />}
+      title={<TextLink link={`${link}/${slug}`} content={hotel_name_trans} />}
+      price={`Rp ${min_total_price}/Night - Free Cancellation`} //
+      rating={
+        <Rating rating={review_score} ratingCount={review_nr} type="bulk" />
+      }
       viewDetailsBtn={
         <TextLink
           link={`${link}/${slug}`}
@@ -83,20 +85,20 @@ const PostGrid = ({
         sliderClass=""
         slidesToSlide={1}
       >
-        {gallery.map(({ url, title }, index) => (
-          <img
-            src={url}
-            alt={title}
-            key={index}
-            draggable={false}
-            style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              position: 'relative',
-            }}
-          />
-        ))}
+        {/* {[main_photo_url].map(({ url, title }, index) => ( */}
+        <img
+          src={max_photo_url}
+          alt={hotel_name_trans}
+          // key={index}
+          draggable={false}
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            position: 'relative',
+          }}
+        />
+        {/* ))} */}
       </Carousel>
     </GridCard>
   );

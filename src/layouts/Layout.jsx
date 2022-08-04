@@ -20,9 +20,7 @@ const Layout = () => {
         <Content>
           <Outlet />
         </Content>
-        <Fragment>
-          <Footer />
-        </Fragment>
+        <Fragment>{/* <Footer /> */}</Fragment>
       </Fragment>
     </LayoutProvider>
   );
