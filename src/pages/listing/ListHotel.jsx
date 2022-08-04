@@ -1,7 +1,7 @@
 import SectionGrid from 'components/SectionGrid/SectionGrid';
 import React, { Fragment } from 'react';
 import useWindowSize from 'helpers/useWindowSize';
-import ListingWrapper, { PostsWrapper, ShowMapCheckbox } from './Listing.style';
+import ListingWrapper, { PostsWrapper } from './Listing.style'; //ShowMapCheckbox
 import { PostPlaceholder } from 'components/ContentLoader/ContentLoader';
 import useDataApi from 'helpers/useDataApi';
 
