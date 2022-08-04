@@ -1,14 +1,14 @@
 import React, { Fragment } from 'react';
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet } from 'react-router-dom'; //, useLocation
 import { Layout as LayoutWrapper } from 'antd';
-import useWindowSize from 'helpers/useWindowSize';
+// import useWindowSize from 'helpers/useWindowSize';
 import LayoutProvider from 'context/LayoutProvider';
 import Header from './Header/Header';
 
 const { Content } = LayoutWrapper;
 
 const Layout = () => {
-  const { width } = useWindowSize();
+  // const { width } = useWindowSize();
   // const singlePageUrlFromConst = SINGLE_POST_PAGE.split('/');
   // const singlePageUrlFormLocation = location.pathname.split('/');
 
