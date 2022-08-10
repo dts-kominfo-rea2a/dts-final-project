@@ -31,7 +31,7 @@ const DetailPosts = () => {
           publishDate={data.created_at}
           images={data.postPicture?.url}
           description={data.content}
-          username={data.author[0].username}
+          username={data.users[0].username}
         />
       </Box>
     </Container>

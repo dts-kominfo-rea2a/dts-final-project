@@ -31,7 +31,7 @@ const HomeIndex = () => {
                       sx={{ marginLeft: '18px', color: 'white' }}
                       variant="contained"
                       size="large"
-                      disableElevation>
+                      disableelevation="true">
                       Get Started
                     </Button>
                   </Link>
@@ -60,7 +60,7 @@ const HomeIndex = () => {
                   data.map((post) => (
                     <CardComponent
                       key={post.id}
-                      username={post.author[0].username}
+                      username={post.users[0].username}
                       title={post.title}
                       description={post.content}
                       href={`/posts/${post.id}`}
